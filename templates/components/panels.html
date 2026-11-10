@@ -1,0 +1,43 @@
+{# 状态面板：id 供页内锚点切换；主页显示全部项目；分页页当前面板用 paginator 数据（用户反馈：显示完所有项目） #}
+{% component board_panel(sec, key, current, is_paged, paginator) %}
+{% set total = sec.pages | length if sec else 0 %}
+{% set paged = is_paged and key == current %}
+{% if paged %}
+  {% set pages = paginator.pages %}
+{% else %}
+  {% set pages = sec.pages if sec else [] %}
+{% endif %}
+{% if key == "graduate" %}
+  {% set p_title = sec.title if sec else "毕业项目" %}
+  {% set p_desc = sec.description if sec else "已完成并稳定维护的项目，优先展示。" %}
+{% elif key == "incubate" %}
+  {% set p_title = sec.title if sec else "孵化项目" %}
+  {% set p_desc = sec.description if sec else "正在积极开发中的项目。" %}
+{% elif key == "archive" %}
+  {% set p_title = sec.title if sec else "归档项目" %}
+  {% set p_desc = sec.description if sec else "已停止开发、仅作存档的项目。" %}
+{% else %}
+  {% set p_title = sec.title if sec else "未收录" %}
+  {% set p_desc = sec.description if sec else "一些小型的项目与工具（CI/CD、脚本等），暂未正式收录。" %}
+{% endif %}
+<div class="panel {% if key == current %}visible{% endif %}" id="{{ key }}">
+  <div class="board">
+    <h2>{{ p_title }}</h2>
+    <div class="desc">{{ p_desc }}</div>
+    {% if pages | length == 0 %}
+    <div class="empty">该分类下暂无项目</div>
+    {% else %}
+    <div class="grid">
+      {% for p in pages %}
+      {{ <card page={p} key={key} label={p_title} /> }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% if paged %}
+    {{ <pager p={paginator} /> }}
+    {% elif sec %}
+    <div class="view-all-wrap"><a class="view-all" href="{{ get_url(path='projects/', trailing_slash=true) }}">查看所有项目</a></div>
+    {% endif %}
+  </div>
+</div>
+{% endcomponent board_panel %}

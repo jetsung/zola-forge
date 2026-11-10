@@ -1,0 +1,31 @@
+{# 个人介绍区：头像、姓名、角色、简介、联系方式、统计、技能 #}
+{% component about(profile, total, graduate, incubate, archive, years) %}
+<div class="about">
+  <div class="row">
+    <div class="avatar">{{ profile.avatar }}</div>
+    <div style="flex:1;min-width:240px">
+      <h2>{{ profile.name }}</h2>
+      <div class="role">{{ profile.role }}</div>
+      <p>{{ profile.bio }}</p>
+      <div class="contact">
+        {% for c in profile.contacts %}
+        <a href="{{ c.url }}" target="_blank" rel="noopener">{{ c.name }} ↗</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b>{{ total }}</b><span>收录项目</span></div>
+    <div class="stat"><b>{{ graduate }}</b><span>毕业项目</span></div>
+    <div class="stat"><b>{{ incubate }}</b><span>孵化项目</span></div>
+    <div class="stat"><b>{{ archive }}</b><span>归档项目</span></div>
+    <div class="stat"><b>{{ years }}</b><span>开源年数</span></div>
+  </div>
+  <div class="skills">
+    <h4>常用技术</h4>
+    <div>
+      {% for s in profile.skills %}<span>{{ s }}</span>{% endfor %}
+    </div>
+  </div>
+</div>
+{% endcomponent about %}

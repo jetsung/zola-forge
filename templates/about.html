@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="wrap blog">
+  <div class="blog-head">
+    <h2>{{ page.title }}</h2>
+    {% if page.description %}<p class="desc">{{ page.description }}</p>{% endif %}
+  </div>
+  <div class="blog-content">{{ page.content | safe }}</div>
+</div>
+{% endblock content %}

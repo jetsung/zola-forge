@@ -1,0 +1,27 @@
+{# 状态入口：单个标签，锚点指向当前页面内的面板 #}
+{% component tab(key, title, count, permalink, current) %}
+<a class="tab {{ key }} {% if key == current %}current{% endif %}" href="#{{ key }}">
+  {{ title }}<span class="count">{{ count }}</span>
+</a>
+{% endcomponent tab %}
+
+{# 状态入口组：四个状态标签；板块为空（未加载到 section）时回退默认文案与链接 #}
+{% component status_tabs(current, graduate, incubate, archive, misc) %}
+{% set g_title = graduate.title if graduate else "毕业项目" %}
+{% set g_count = graduate.pages | length if graduate else 0 %}
+{% set g_permalink = graduate.permalink if graduate else get_url(path="projects/graduate/", trailing_slash=true) %}
+{% set i_title = incubate.title if incubate else "孵化项目" %}
+{% set i_count = incubate.pages | length if incubate else 0 %}
+{% set i_permalink = incubate.permalink if incubate else get_url(path="projects/incubate/", trailing_slash=true) %}
+{% set a_title = archive.title if archive else "归档项目" %}
+{% set a_count = archive.pages | length if archive else 0 %}
+{% set a_permalink = archive.permalink if archive else get_url(path="projects/archive/", trailing_slash=true) %}
+{% set m_count = misc.pages | length if misc else 0 %}
+{% set m_permalink = misc.permalink if misc else get_url(path="projects/misc/", trailing_slash=true) %}
+<div class="tabs">
+  {{ <tab key="graduate" title={g_title} count={g_count} permalink={g_permalink} current={current} /> }}
+  {{ <tab key="incubate" title={i_title} count={i_count} permalink={i_permalink} current={current} /> }}
+  {{ <tab key="archive" title={a_title} count={a_count} permalink={a_permalink} current={current} /> }}
+  {{ <tab key="misc" title="未收录" count={m_count} permalink={m_permalink} current={current} /> }}
+</div>
+{% endcomponent status_tabs %}

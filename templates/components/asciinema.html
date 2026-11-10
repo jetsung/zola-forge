@@ -1,0 +1,14 @@
+{# asciinema 终端录制/直播流播放器嵌入 component（根据 asciinema 官方文档 Embedding、Sharing 与官方嵌入脚本实现） #}
+{# 用法：{{ <asciinema id="13" /> }}（录制，/a/ 路径）或 {{ <asciinema id="MsgCXmGxqg6lkLPq" stream={true} /> }}（直播流/分享，/s/ 路径） #}
+{# server 为自托管服务器地址（不带末尾斜杠），默认 https://asciinema.org；id 数字或 URL token 均可 #}
+{# 播放参数来自 sharing 文档的链接参数，经嵌入脚本的 data-* 属性传递（data-t → startAt，data-i → idleTimeLimit；autoplay/loop/preload 为空值属性即视为 1） #}
+{# 类型约定（Tera 组件严格类型）：取值参数一律传字符串（speed="2"、t="25"），布尔参数传 {true} #}
+{# 播放器由服务器提供的 .js 脚本异步加载，仅在使用该组件的页面引入，主题本体保持零运行时 JS #}
+{# 脚本按 script id 前缀区分容器类型：asciicast- → /a/（录制），asciinema-stream- → /s/（直播流），前缀必须与路径匹配 #}
+{# 开关参数（autoplay/loop/preload）取值 "1"（开）/ "0"（关）/ 省略（默认关）：文档 1/true 与 0/false 等效，脚本原样转发播放器；t 起播隐含 autoplay=1，需显式 autoplay="0" 关闭 #}
+{% component asciinema(id, server="https://asciinema.org", stream=false, t="", speed="", theme="", autoplay="", loop="", preload="", cols="", rows="", idleTimeLimit="", poster="") %}
+{%- if stream -%}{%- set prefix = "asciinema-stream" -%}{%- set path = "/s/" -%}{%- else -%}{%- set prefix = "asciicast" -%}{%- set path = "/a/" -%}{%- endif -%}
+<div class="asciinema-embed">
+  <script async id="{{ prefix }}-{{ id }}" src="{{ server }}{{ path }}{{ id }}.js"{% if t != "" %} data-t="{{ t }}"{% endif %}{% if speed != "" %} data-speed="{{ speed }}"{% endif %}{% if theme != "" %} data-theme="{{ theme }}"{% endif %}{% if autoplay != "" %} data-autoplay="{{ autoplay }}"{% endif %}{% if loop != "" %} data-loop="{{ loop }}"{% endif %}{% if preload != "" %} data-preload="{{ preload }}"{% endif %}{% if cols != "" %} data-cols="{{ cols }}"{% endif %}{% if rows != "" %} data-rows="{{ rows }}"{% endif %}{% if idleTimeLimit != "" %} data-i="{{ idleTimeLimit }}"{% endif %}{% if poster != "" %} data-poster="{{ poster }}"{% endif %}></script>
+</div>
+{% endcomponent asciinema %}

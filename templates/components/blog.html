@@ -1,0 +1,24 @@
+{# 博客文章卡片：列表页与 taxonomy 页共用（DoIt summary 风格） #}
+{% component blog_card(page) %}
+<article class="blog-card">
+  <h2><a href="{{ page.permalink }}">{{ page.title }}</a></h2>
+  <div class="blog-meta">
+    <time>{{ page.date | date(format="%Y-%m-%d") }}</time>
+    {% if page.taxonomies.categories %}
+    <span><span class="foot-label">分类: </span>
+      {% for cat in page.taxonomies.categories %}<a href="{{ get_taxonomy_url(kind='categories', term=cat) }}">{{ cat }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+    </span>
+    {% endif %}
+  </div>
+  {% if page.description %}
+  <p class="blog-summary">{{ page.description }}</p>
+  {% else %}
+  <p class="blog-summary">{{ page.content | striptags | truncate(length=120) }}</p>
+  {% endif %}
+  {% if page.taxonomies.tags %}
+  <div class="blog-card-tags"><span class="foot-label">标签: </span>
+    {% for tag in page.taxonomies.tags %}<a href="{{ get_taxonomy_url(kind='tags', term=tag) }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+  </div>
+  {% endif %}
+</article>
+{% endcomponent blog_card %}

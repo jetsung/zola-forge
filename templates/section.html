@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="wrap">
+  {% if paginator %}
+    {% set pages = paginator.pages %}
+  {% else %}
+    {% set pages = section.pages %}
+  {% endif %}
+  {% set key = section.components | last %}
+  <div class="page-head">
+    <h2>{{ section.title }}</h2>
+    <p class="desc">{{ section.description }}</p>
+  </div>
+  {% if pages | length == 0 %}
+  <div class="empty">该分类下暂无项目</div>
+  {% else %}
+  <div class="grid">
+    {% for p in pages %}
+    {{ <card page={p} key={key} label={section.title} /> }}
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if paginator %}
+  {{ <pager p={paginator} /> }}
+  {% endif %}
+</div>
+{% endblock content %}

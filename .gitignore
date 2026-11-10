@@ -1,0 +1,6 @@
+# 构建产物（主题作为站点 submodule 使用，产物生成在站点根 public/）
+public/
+.DS_Store
+
+# 示例站调试用：本地将主题复制到 exampleSite/themes/forge 构建验证，不入库
+exampleSite/themes/

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block css %}{% set ht = config.extra.home_type | default(value="projects") %}{% if ht == "blog" or ht == "mixed" %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endif %}{% endblock css %}
+{% block title %}{{ config.title }} · 个人作品展示{% endblock title %}
+
+{% block content %}
+{% set ht = config.extra.home_type | default(value="projects") %}
+<div class="wrap">
+  {% set graduate = get_section(path="projects/graduate/_index.md", allow_missing=true) %}
+  {% set incubate = get_section(path="projects/incubate/_index.md", allow_missing=true) %}
+  {% set archive = get_section(path="projects/archive/_index.md", allow_missing=true) %}
+  {% set misc = get_section(path="projects/misc/_index.md", allow_missing=true) %}
+  {% set blog_sec = get_section(path="blog/_index.md", allow_missing=true) %}
+  {% set g_count = graduate.pages | length if graduate else 0 %}
+  {% set i_count = incubate.pages | length if incubate else 0 %}
+  {% set a_count = archive.pages | length if archive else 0 %}
+  {% set m_count = misc.pages | length if misc else 0 %}
+  {% set years = now() | date(format="%Y") | int - config.extra.profile.start_year %}
+  {% set profile = config.extra.profile %}
+  {% set default_status = config.extra.home_default_status %}
+
+  {% if config.extra.profile.enable %}
+  {{ <about profile={profile} total={g_count + i_count + a_count + m_count} graduate={g_count} incubate={i_count} archive={a_count} years={years} /> }}
+  {% endif %}
+
+  {% if ht == "blog" %}
+  {# 博客模式主页：个人资料 + 最近文章（与博客页的区别在于包含个人资料模块） #}
+  {% if blog_sec %}
+  <div class="blog-list">
+    {% for p in blog_sec.pages %}
+      {% if loop.index > config.extra.home_blog_count %}{% break %}{% endif %}
+      {{ <blog_card page={p} /> }}
+    {% endfor %}
+  </div>
+  {% if blog_sec.pages | length > config.extra.home_blog_count %}
+  <div class="view-all-wrap"><a class="view-all" href="{{ get_url(path='blog/', trailing_slash=true) }}">查看全部 {{ blog_sec.pages | length }} 篇文章 →</a></div>
+  {% endif %}
+  {% else %}
+  <div class="empty">暂无文章</div>
+  {% endif %}
+  {% else %}
+  {% if ht == "projects" or ht == "mixed" %}
+  {{ <featured pages={graduate.pages} limit={config.extra.featured_count} /> }}
+  {% endif %}
+  <div class="tabbed">
+    {% if ht == "mixed" and blog_sec %}
+    <div class="blog-list home-blog">
+      {% for p in blog_sec.pages %}
+        {% if loop.index > config.extra.home_blog_count %}{% break %}{% endif %}
+        {{ <blog_card page={p} /> }}
+      {% endfor %}
+    </div>
+    <div class="view-all-wrap"><a class="view-all" href="{{ get_url(path='blog/', trailing_slash=true) }}">全部文章 →</a></div>
+    {% endif %}
+    {{ <board_panel sec={graduate} key="graduate" current={default_status} is_paged={false} paginator={0} /> }}
+    {{ <board_panel sec={incubate} key="incubate" current={default_status} is_paged={false} paginator={0} /> }}
+    {{ <board_panel sec={archive} key="archive" current={default_status} is_paged={false} paginator={0} /> }}
+    {{ <board_panel sec={misc} key="misc" current={default_status} is_paged={false} paginator={0} /> }}
+    {{ <status_tabs current={default_status} graduate={graduate} incubate={incubate} archive={archive} misc={misc} /> }}
+  </div>
+  {% endif %}
+</div>
+{% endblock content %}

@@ -1,0 +1,35 @@
+{# 精选项目：最近更新的毕业项目前 limit 个；数量足够时以跑马灯循环滚动，否则回退静态网格（design D9） #}
+{% component featured(pages, limit) %}
+{% if pages %}
+  {% set total = pages | length %}
+  {% set show = limit if total > limit else total %}
+  {% if show >= 4 %}
+<div class="featured">
+  <h4>精选项目</h4>
+  <div class="marquee">
+    <div class="marquee-track">
+      {% for p in pages %}
+        {% if loop.index > limit %}{% break %}{% endif %}
+        {{ <fcard page={p} /> }}
+      {% endfor %}
+      {# 无缝循环副本：对辅助技术与键盘焦点隐藏 #}
+      {% for p in pages %}
+        {% if loop.index > limit %}{% break %}{% endif %}
+        {{ <fcard page={p} aria_hidden={true} /> }}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+  {% else %}
+<div class="featured">
+  <h4>精选项目</h4>
+  <div class="fgrid">
+    {% for p in pages %}
+      {% if loop.index > limit %}{% break %}{% endif %}
+      {{ <fcard page={p} /> }}
+    {% endfor %}
+  </div>
+</div>
+  {% endif %}
+{% endif %}
+{% endcomponent featured %}

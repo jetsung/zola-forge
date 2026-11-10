@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block title %}博客 · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="wrap blog">
+  <div class="blog-head">
+    <h2>{{ section.title }}</h2>
+    <p class="desc">{{ section.description }}</p>
+  </div>
+  {% if paginator %}
+    {% set posts = paginator.pages %}
+  {% else %}
+    {% set posts = section.pages %}
+  {% endif %}
+  {% if posts | length == 0 %}
+  <div class="empty">暂无文章</div>
+  {% else %}
+  <div class="blog-list">
+    {% for p in posts %}{{ <blog_card page={p} /> }}{% endfor %}
+  </div>
+  {% endif %}
+  {% if paginator %}{{ <pager p={paginator} /> }}{% endif %}
+</div>
+{% endblock content %}

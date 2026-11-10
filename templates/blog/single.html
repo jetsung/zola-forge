@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="wrap blog">
+  <article class="single-post">
+    <h1>{{ page.title }}</h1>
+    <div class="blog-meta">
+      <time>发布于 {{ page.date | date(format="%Y-%m-%d") }}</time>
+      {% if page.updated %}<time>更新于 {{ page.updated | date(format="%Y-%m-%d") }}</time>{% endif %}
+      {% if page.taxonomies.categories %}
+      <span class="foot-group"><span class="foot-label">分类: </span>
+        {% for cat in page.taxonomies.categories %}<a href="{{ get_taxonomy_url(kind='categories', term=cat) }}">{{ cat }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+      </span>
+      {% endif %}
+    </div>
+    <div class="blog-content">{{ page.content | safe }}</div>
+    {% if page.taxonomies.tags %}
+    <div class="blog-foot">
+      <span class="foot-group"><span class="foot-label">标签: </span>
+        {% for tag in page.taxonomies.tags %}<a href="{{ get_taxonomy_url(kind='tags', term=tag) }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+      </span>
+    </div>
+    {% endif %}
+    <p><a class="back" href="{{ get_url(path='blog/', trailing_slash=true) }}">← 返回列表</a></p>
+  </article>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+// 代码块一键复制：为每个 pre 注入右上角复制按钮，点击复制全部代码文本
+(function(){
+  document.querySelectorAll('.blog-content pre').forEach(function(pre){
+    var btn=document.createElement('button');
+    btn.className='copy-btn';btn.type='button';btn.textContent='复制';
+    btn.addEventListener('click',function(){
+      var text=pre.innerText.replace(/复制$/, '');
+      var code=pre.querySelector('code');
+      if(code)text=code.innerText;
+      (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(text):Promise.reject()).then(function(){
+        btn.textContent='已复制';btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);
+      }).catch(function(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');btn.textContent='已复制';btn.classList.add('copied');
+          setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);}catch(e){}
+        document.body.removeChild(ta);
+      });
+    });
+    pre.appendChild(btn);
+  });
+})();
+</script>
+{% endblock js %}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <!-- forge 主题图标：主色青圆角方块 + 白色 F 字标 + 浅青终端下划线（呼应主题色 #0e7490 与终端录制特性） -->
+  <rect width="256" height="256" rx="52" fill="#0e7490"/>
+  <g fill="#ffffff">
+    <rect x="52" y="64" width="30" height="128" rx="8"/>
+    <rect x="52" y="64" width="84" height="30" rx="8"/>
+    <rect x="52" y="112" width="64" height="30" rx="8"/>
+  </g>
+  <rect x="168" y="162" width="36" height="30" rx="8" fill="#67e8f9"/>
+</svg>

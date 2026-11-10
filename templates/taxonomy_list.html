@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block title %}{% set cn_name = "分类" if taxonomy.name == "categories" else "标签" %}{{ cn_name }} · {{ config.title }}{% endblock title %}
+
+{% block content %}
+{% set cn_name = "分类" if taxonomy.name == "categories" else "标签" %}
+<div class="wrap blog">
+  <div class="blog-head">
+    <h2>{{ cn_name }}</h2>
+    <p class="desc">共 {{ terms | length }} 个{{ cn_name }}条目</p>
+  </div>
+  <div class="blog-terms">
+    {% for t in terms %}
+    <a class="blog-term" href="{{ t.permalink }}">{{ t.name }}<span class="count">{{ t.page_count }}</span></a>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

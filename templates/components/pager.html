@@ -1,0 +1,22 @@
+{# 分页器：数字页码 + 前后翻页，全部为链接；当前页高亮 #}
+{% component pager(p) %}
+<div class="pager">
+  {% if p.previous %}
+  <a href="{{ p.previous }}" aria-label="上一页">‹</a>
+  {% else %}
+  <button disabled>‹</button>
+  {% endif %}
+  {% for i in range(start=1, end=p.number_pagers + 1) %}
+    {% if i == p.current_index %}
+    <a class="on" href="{{ p.first }}">{{ i }}</a>
+    {% else %}
+    <a href="{{ p.base_url }}{{ i }}">{{ i }}</a>
+    {% endif %}
+  {% endfor %}
+  {% if p.next %}
+  <a href="{{ p.next }}" aria-label="下一页">›</a>
+  {% else %}
+  <button disabled>›</button>
+  {% endif %}
+</div>
+{% endcomponent pager %}

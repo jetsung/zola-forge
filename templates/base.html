@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ config.title }}{% endblock title %}</title>
+<link rel="stylesheet" href="{{ get_url(path='forge.css') }}">
+{% if config.extra.favicon.ico %}<link rel="icon" href="{{ get_url(path=config.extra.favicon.ico) }}">{% endif %}
+{% if config.extra.favicon.apple %}<link rel="apple-touch-icon" href="{{ get_url(path=config.extra.favicon.apple) }}">{% endif %}
+{% if config.extra.favicon.manifest %}<link rel="manifest" href="{{ get_url(path=config.extra.favicon.manifest) }}">{% endif %}
+{% if config.extra.favicon.theme_color %}<meta name="theme-color" content="{{ config.extra.favicon.theme_color }}">{% endif %}
+{% block css %}{% endblock css %}
+{% if config.extra.pwa.enabled %}<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("{{ get_url(path='sw.js') }}"));
+}
+</script>{% endif %}
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      {% if config.extra.site_brand %}<div class="brand">{{ config.extra.site_brand }}</div>{% endif %}
+      <h1><a class="site-title" href="{{ config.base_url }}/">{{ config.title }}</a></h1>
+      <p>{{ config.extra.site_subtitle }}</p>
+    </div>
+    <nav class="nav">
+      {% for l in config.extra.nav.links %}
+      {% set plen = l.path | length %}
+      {% set is_active = (l.path == "/" and current_path == "/") or (l.path != "/" and current_path[:plen] == l.path) %}
+      <a class="nav-item {% if is_active %}active{% endif %}" href="{{ get_url(path=l.path) }}">{{ l.name }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+
+{% block content %}{% endblock content %}
+
+<footer>{% if config.extra.footer_text %}{{ config.extra.footer_text | safe }}{% else %}&copy; {{ now() | date(format="%Y") }} {{ config.extra.profile.name | default(value=config.author) }} · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a>{% endif %}</footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+{% block js %}{% endblock js %}
+</body>
+</html>

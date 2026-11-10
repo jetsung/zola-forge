@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} · {{ config.title }}{% endblock title %}
+
+{% block content %}
+<div class="wrap">
+  <div class="page-head">
+    <h2>{{ section.title }}</h2>
+    <p class="desc">{{ section.description }}</p>
+  </div>
+  {% set graduate = get_section(path="projects/graduate/_index.md", allow_missing=true) %}
+  {% set incubate = get_section(path="projects/incubate/_index.md", allow_missing=true) %}
+  {% set archive = get_section(path="projects/archive/_index.md", allow_missing=true) %}
+  {% set misc = get_section(path="projects/misc/_index.md", allow_missing=true) %}
+  {% for sec in [graduate, incubate, archive, misc] %}
+    {% if sec %}
+    {% set key = sec.components | last %}
+    {% set total = sec.pages | length %}
+    <h3 class="group-title">{{ sec.title }}<span class="count">{{ total }}</span></h3>
+    {% if total == 0 %}
+    <div class="empty">该分类下暂无项目</div>
+    {% else %}
+    <div class="grid">
+      {% for p in sec.pages %}
+      {{ <card page={p} key={key} label={sec.title} /> }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endif %}
+  {% endfor %}
+</div>
+{% endblock content %}
