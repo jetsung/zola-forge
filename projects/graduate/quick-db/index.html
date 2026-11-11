@@ -61,9 +61,9 @@
     <span class="badge graduate">毕业项目</span>
     起始于 2023-06
   </div>
-  <section><h4>简介</h4><div><p>示例项目 <strong>quick-db</strong>：一个轻量级嵌入式键值存储库（示例内容，演示项目卡片与详情页）。</p>
+  <section><h4>简介</h4><div class="prose"><p>示例项目 <strong>quick-db</strong>：一个轻量级嵌入式键值存储库（示例内容，演示项目卡片与详情页）。</p>
 <ul>
-<li>正文第一段同时作为卡片简介：列表卡片默认截断两行，悬停卡片会浮出完整简介；</li>
+<li>卡片简介优先取 front matter 的 <code>description</code> 字段（建议 50 字以内），缺省回退正文首段；悬停卡片会浮出完整简介；</li>
 <li><code>extra.timeline</code>、<code>extra.links</code>、<code>extra.changelog</code> 均可省略，详情页会省略对应区块。</li>
 </ul>
 </div></section>
