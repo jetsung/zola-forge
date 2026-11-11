@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>主题特性与定制 · forge 主题示例站</title>
+<link rel="stylesheet" href="https://forge-demo.idev.top/forge.css">
+<link rel="icon" href="https://forge-demo.idev.top/favicon.ico">
+
+
+<meta name="theme-color" content="#0e7490">
+<link rel="stylesheet" href="https://forge-demo.idev.top/blog.css">
+
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      <div class="brand">Forge Demo</div>
+      <h1><a class="site-title" href="https://forge-demo.idev.top/">forge 主题示例站</a></h1>
+      <p>forge 主题示例站：收录示例项目的开发、孵化与归档。</p>
+    </div>
+    <nav class="nav">
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top">首页</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/projects">作品</a>
+      
+      
+      
+      <a class="nav-item active" href="https://forge-demo.idev.top/blog">博客</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/categories">分类</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/tags">标签</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/about">关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+<div class="wrap blog">
+  <article class="single-post">
+    <h1>主题特性与定制</h1>
+    <div class="blog-meta">
+      <time>发布于 2026-11-10</time>
+      
+      
+      <span class="foot-group"><span class="foot-label">分类: </span>
+        <a href="https://forge-demo.idev.top/categories/shi-yong-wen-dang/">使用文档</a>
+      </span>
+      
+    </div>
+    <div class="blog-content"><p>本文是 forge 主题的特性说明与定制指南：配置项详解见《forge 主题配置详解》，内容组织见《内容组织与状态板块》。</p>
+<h2 id="shou-ye-mo-shi">首页模式</h2>
+<p><code>[extra] home_type</code> 三种取值：</p>
+<table><thead><tr><th>模式</th><th>主页内容</th></tr></thead><tbody>
+<tr><td><code>projects</code>（默认）</td><td>个人资料 + 精选项目跑马灯 + 状态面板预览（页内锚点切换）</td></tr>
+<tr><td><code>blog</code></td><td>个人资料 + 最近文章卡片列表（<code>home_blog_count</code> 篇，超出提供「查看全部」）</td></tr>
+<tr><td><code>mixed</code></td><td>个人资料 + 精选项目 + 最近文章 + 状态面板预览</td></tr>
+</tbody></table>
+<p><code>blog</code> / <code>mixed</code> 模式与博客页的区别在于主页包含<strong>个人资料模块</strong>。</p>
+<h2 id="jiao-hu-te-xing">交互特性</h2>
+<p>主题无任何运行时 JS（可选 PWA 除外）：</p>
+<ul>
+<li>状态入口是<strong>页内锚点切换</strong>（CSS <code>:target</code>，切换时个人信息与精选项目保持可见，支持 <code>/#archive</code> 式深链接），分页是链接导航，详情是独立页面；</li>
+<li>列表卡片默认截断两行简介，<strong>悬停卡片浮出完整简介</strong>（<code>.tip</code> 浮层，无滚动条）；</li>
+<li>精选项目 <code>featured_count ≥ 4</code> 时以跑马灯循环展示（双份内容 + <code>translateX(-50%)</code> 无缝循环，纯 CSS，<code>prefers-reduced-motion</code> 下降级为横向滚动）；</li>
+<li>sticky footer：页脚通过纯 CSS（<code>body</code> flex 布局）固定在视口底部，内容不足一屏的页面页脚也贴底。</li>
+</ul>
+<h2 id="favicon-yu-pwa">favicon 与 PWA</h2>
+<p>将图标文件放入站点 <code>static/</code> 目录并在 <code>[extra.favicon]</code> 中配置文件名（留空则不输出对应 <code>link</code>），即支持 favicon、apple-touch-icon 与 PWA manifest（可安装到主屏/桌面）。</p>
+<p>PWA Service Worker 由 <code>[extra.pwa].enabled</code> 控制（默认开启）：已访问资源离线缓存（stale-while-revalidate），断网后已访问页面仍可展示；关闭时构建产物零 JS。</p>
+<h2 id="yang-shi-jie-gou">样式结构</h2>
+<table><thead><tr><th>文件</th><th>作用</th><th>加载范围</th></tr></thead><tbody>
+<tr><td><code>sass/forge.scss</code></td><td>作品区全局样式（看板、卡片、导航、详情页、页脚等）</td><td>所有页面</td></tr>
+<tr><td><code>sass/blog.scss</code></td><td>博客样式（主色 <code>#2d809a</code>，与作品区青色系协调）</td><td>仅博客相关页面</td></tr>
+<tr><td><code>static/sw.js</code></td><td>PWA Service Worker（离线缓存）</td><td><code>[extra.pwa].enabled</code> 控制</td></tr>
+</tbody></table>
+<p>主题色与设计令牌集中在 <code>forge.scss</code> 顶部的 <code>:root</code> 变量中，改色只需改这里：</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="css"><span class="giallo-l"><span style="color: #6F42C1;">:root</span><span>{</span></span>
+<span class="giallo-l"><span style="color: #E36209;">  --bg</span><span>:</span><span style="color: #005CC5;">#f5f7f8</span><span>;</span><span style="color: #E36209;"> --surface</span><span>:</span><span style="color: #005CC5;">#ffffff</span><span>;</span><span style="color: #E36209;"> --ink</span><span>:</span><span style="color: #005CC5;">#1c2b33</span><span>;</span><span style="color: #E36209;"> --muted</span><span>:</span><span style="color: #005CC5;">#5b6b73</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #E36209;">  --line</span><span>:</span><span style="color: #005CC5;">#dde4e8</span><span>;</span><span style="color: #E36209;"> --accent</span><span>:</span><span style="color: #005CC5;">#0e7490</span><span>;</span><span style="color: #E36209;"> --accent-soft</span><span>:</span><span style="color: #005CC5;">#e0f2f7</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #E36209;">  --graduate</span><span>:</span><span style="color: #005CC5;">#0e7490</span><span>;</span><span style="color: #E36209;"> --incubate</span><span>:</span><span style="color: #005CC5;">#b45309</span><span>;</span><span style="color: #E36209;"> --archive</span><span>:</span><span style="color: #005CC5;">#6b7280</span><span>;</span></span>
+<span class="giallo-l"><span style="color: #E36209;">  --radius</span><span>:</span><span style="color: #005CC5;">10</span><span style="color: #D73A49;">px</span><span>;</span><span style="color: #E36209;"> --shadow</span><span>:…;</span><span style="color: #E36209;"> --mono</span><span>:…;</span></span>
+<span class="giallo-l"><span>}</span></span></code></pre>
+<p><code>--graduate</code> / <code>--incubate</code> / <code>--archive</code> 分别是状态板块的徽章配色，新增板块时在旁边补一个变量。</p>
+<h2 id="mo-ban-jie-gou">模板结构</h2>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="plain"><span class="giallo-l"><span>templates/</span></span>
+<span class="giallo-l"><span>├── base.html                 # 全局骨架（header / nav / footer / favicon / sw 注册）</span></span>
+<span class="giallo-l"><span>├── index.html                # 主页（按 home_type 组装组件）</span></span>
+<span class="giallo-l"><span>├── section.html              # 通用板块页（状态板块看板）</span></span>
+<span class="giallo-l"><span>├── page.html                 # 项目详情页</span></span>
+<span class="giallo-l"><span>├── about.html                # 关于页</span></span>
+<span class="giallo-l"><span>├── taxonomy_list.html        # 标签/分类汇总页</span></span>
+<span class="giallo-l"><span>├── taxonomy_single.html      # 单个标签/分类的文章列表</span></span>
+<span class="giallo-l"><span>├── blog/                     # 博客列表与文章详情</span></span>
+<span class="giallo-l"><span>├── projects/                 # 作品汇总页</span></span>
+<span class="giallo-l"><span>└── components/               # Tera 组件（个人资料、精选、面板、卡片、分页、asciinema 等）</span></span></code></pre>
+<p>覆盖方式：在站点根目录建立同路径的 <code>templates/</code> 文件即可覆盖主题模板（zola 标准机制），无需改动主题本身。</p>
+<h2 id="zai-wen-zhang-zhong-qian-ru-asciinema">在文章中嵌入 asciinema</h2>
+<p>主题提供 <code>asciinema</code> 组件，可在文章中嵌入终端录制与直播流播放器（录制/自托管服务器/直播流、起播时间、速度、主题等播放参数），全套用法见示例站文章《在博客中嵌入 asciinema 终端录制》。</p>
+<h2 id="qi-ta-shuo-ming">其他说明</h2>
+<ul>
+<li>空板块（状态目录只有 <code>_index.md</code>）正常构建，显示「该分类下暂无项目」；</li>
+<li>所有过渡动画在 <code>prefers-reduced-motion: reduce</code> 下禁用；</li>
+<li>提交到 zola 主题画廊前需补一张 <code>screenshot.png</code>（≤ 2000×1000）。</li>
+</ul>
+</div>
+    
+    <div class="blog-foot">
+      <span class="foot-group"><span class="foot-label">标签: </span>
+        <a href="https://forge-demo.idev.top/tags/zola/">Zola</a>, <a href="https://forge-demo.idev.top/tags/forge/">forge</a>
+      </span>
+    </div>
+    
+    <p><a class="back" href="https://forge-demo.idev.top/blog/">← 返回列表</a></p>
+  </article>
+</div>
+
+
+<footer>&copy; 2026 Forge Demo · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a></footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+
+<script>
+// 代码块一键复制：为每个 pre 注入右上角复制按钮，点击复制全部代码文本
+(function(){
+  document.querySelectorAll('.blog-content pre').forEach(function(pre){
+    var btn=document.createElement('button');
+    btn.className='copy-btn';btn.type='button';btn.textContent='复制';
+    btn.addEventListener('click',function(){
+      var text=pre.innerText.replace(/复制$/, '');
+      var code=pre.querySelector('code');
+      if(code)text=code.innerText;
+      (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(text):Promise.reject()).then(function(){
+        btn.textContent='已复制';btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);
+      }).catch(function(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');btn.textContent='已复制';btn.classList.add('copied');
+          setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);}catch(e){}
+        document.body.removeChild(ta);
+      });
+    });
+    pre.appendChild(btn);
+  });
+})();
+</script>
+
+</body>
+</html>

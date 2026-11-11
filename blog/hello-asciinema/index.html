@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在博客中嵌入 asciinema 终端录制 · forge 主题示例站</title>
+<link rel="stylesheet" href="https://forge-demo.idev.top/forge.css">
+<link rel="icon" href="https://forge-demo.idev.top/favicon.ico">
+
+
+<meta name="theme-color" content="#0e7490">
+<link rel="stylesheet" href="https://forge-demo.idev.top/blog.css">
+
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      <div class="brand">Forge Demo</div>
+      <h1><a class="site-title" href="https://forge-demo.idev.top/">forge 主题示例站</a></h1>
+      <p>forge 主题示例站：收录示例项目的开发、孵化与归档。</p>
+    </div>
+    <nav class="nav">
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top">首页</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/projects">作品</a>
+      
+      
+      
+      <a class="nav-item active" href="https://forge-demo.idev.top/blog">博客</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/categories">分类</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/tags">标签</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/about">关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+<div class="wrap blog">
+  <article class="single-post">
+    <h1>在博客中嵌入 asciinema 终端录制</h1>
+    <div class="blog-meta">
+      <time>发布于 2026-11-10</time>
+      
+      
+      <span class="foot-group"><span class="foot-label">分类: </span>
+        <a href="https://forge-demo.idev.top/categories/shi-li/">示例</a>
+      </span>
+      
+    </div>
+    <div class="blog-content"><p>本主题提供 <code>asciinema</code> 组件，可在文章中嵌入 <a rel="noopener external" target="_blank" href="https://asciinema.org">asciinema</a> 终端录制播放器（根据 asciinema 官方 Embedding 文档实现，播放器脚本由服务器异步提供，仅在使用的页面引入）。</p>
+<h2 id="qian-ru-guan-fang-lu-zhi">嵌入官方录制</h2>
+<div class="asciinema-embed">
+  <script async id="asciicast-569727" src="https://asciinema.org/a/569727.js"></script>
+</div>
+<h2 id="zi-tuo-guan-fu-wu-qi">自托管服务器</h2>
+<div class="asciinema-embed">
+  <script async id="asciicast-13" src="https://rec.asfd.cn/a/13.js"></script>
+</div>
+<h2 id="bo-fang-can-shu">播放参数</h2>
+<p>分享链接的参数均可通过组件传递（经嵌入脚本 <code>data-*</code> 属性转发给播放器）：<code>t</code>（起播时间）、<code>speed</code>（速度）、<code>theme</code>（主题）、<code>autoplay</code>、<code>loop</code>、<code>idleTimeLimit</code>、<code>poster</code>、<code>cols</code>、<code>rows</code>、<code>preload</code>。</p>
+<p>下面是 25 秒起播、2 倍速、Nord 主题、自动循环播放的示例：</p>
+<div class="asciinema-embed">
+  <script async id="asciicast-569727" src="https://asciinema.org/a/569727.js" data-t="25" data-speed="2" data-theme="nord" data-autoplay="1" data-loop="1"></script>
+</div>
+<p>开关参数取 <code>1</code> / <code>0</code>（与文档 <code>1</code>/<code>true</code>、<code>0</code>/<code>false</code> 等效）；注意 <code>t</code> 起播会隐含自动播放，需显式 <code>autoplay="0"</code> 关闭。</p>
+<h2 id="zhi-bo-liu">直播流</h2>
+<p><code>stream={true}</code> 走 <code>/s/</code> 直播流路径（asciinema <code>stream</code> 的分享链接）：</p>
+<div class="asciinema-embed">
+  <script async id="asciinema-stream-MsgCXmGxqg6lkLPq" src="https://asciinema.org/s/MsgCXmGxqg6lkLPq.js"></script>
+</div>
+<p>完整参数说明见主题 <code>README.md</code> 的「asciinema 嵌入」章节。</p>
+</div>
+    
+    <div class="blog-foot">
+      <span class="foot-group"><span class="foot-label">标签: </span>
+        <a href="https://forge-demo.idev.top/tags/asciinema/">asciinema</a>, <a href="https://forge-demo.idev.top/tags/zola/">Zola</a>
+      </span>
+    </div>
+    
+    <p><a class="back" href="https://forge-demo.idev.top/blog/">← 返回列表</a></p>
+  </article>
+</div>
+
+
+<footer>&copy; 2026 Forge Demo · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a></footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+
+<script>
+// 代码块一键复制：为每个 pre 注入右上角复制按钮，点击复制全部代码文本
+(function(){
+  document.querySelectorAll('.blog-content pre').forEach(function(pre){
+    var btn=document.createElement('button');
+    btn.className='copy-btn';btn.type='button';btn.textContent='复制';
+    btn.addEventListener('click',function(){
+      var text=pre.innerText.replace(/复制$/, '');
+      var code=pre.querySelector('code');
+      if(code)text=code.innerText;
+      (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(text):Promise.reject()).then(function(){
+        btn.textContent='已复制';btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);
+      }).catch(function(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');btn.textContent='已复制';btn.classList.add('copied');
+          setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);}catch(e){}
+        document.body.removeChild(ta);
+      });
+    });
+    pre.appendChild(btn);
+  });
+})();
+</script>
+
+</body>
+</html>

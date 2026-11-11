@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容组织与状态板块 · forge 主题示例站</title>
+<link rel="stylesheet" href="https://forge-demo.idev.top/forge.css">
+<link rel="icon" href="https://forge-demo.idev.top/favicon.ico">
+
+
+<meta name="theme-color" content="#0e7490">
+<link rel="stylesheet" href="https://forge-demo.idev.top/blog.css">
+
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      <div class="brand">Forge Demo</div>
+      <h1><a class="site-title" href="https://forge-demo.idev.top/">forge 主题示例站</a></h1>
+      <p>forge 主题示例站：收录示例项目的开发、孵化与归档。</p>
+    </div>
+    <nav class="nav">
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top">首页</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/projects">作品</a>
+      
+      
+      
+      <a class="nav-item active" href="https://forge-demo.idev.top/blog">博客</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/categories">分类</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/tags">标签</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/about">关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+<div class="wrap blog">
+  <article class="single-post">
+    <h1>内容组织与状态板块</h1>
+    <div class="blog-meta">
+      <time>发布于 2026-11-10</time>
+      
+      
+      <span class="foot-group"><span class="foot-label">分类: </span>
+        <a href="https://forge-demo.idev.top/categories/shi-yong-wen-dang/">使用文档</a>
+      </span>
+      
+    </div>
+    <div class="blog-content"><p>本文是 forge 主题的内容组织参考：作品看板与博客的内容目录、front matter 与排序设定。完整示例见示例站 <a rel="noopener external" target="_blank" href="https://github.com/jetsung/zola-forge/tree/main/themes/forge/exampleSite/content">content/</a> 目录。</p>
+<h2 id="zuo-pin-mu-lu-zu-zhi">作品目录组织</h2>
+<p>每个项目是 <code>content/projects/</code> 下某个状态子目录中的一个 Markdown 页面，状态目录按需增减（如 <code>misc/</code>）：</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="plain"><span class="giallo-l"><span>content/</span></span>
+<span class="giallo-l"><span>├── _index.md                  # 站点描述（header 副标题）</span></span>
+<span class="giallo-l"><span>├── about.md                   # 关于页</span></span>
+<span class="giallo-l"><span>├── projects/</span></span>
+<span class="giallo-l"><span>│   ├── _index.md              # 作品汇总页（template = &quot;projects/list.html&quot;）</span></span>
+<span class="giallo-l"><span>│   ├── graduate/</span></span>
+<span class="giallo-l"><span>│   │   ├── _index.md          # 板块标题/描述/排序/分页大小</span></span>
+<span class="giallo-l"><span>│   │   └── quick-db.md        # 一个项目 = 一个页面</span></span>
+<span class="giallo-l"><span>│   ├── incubate/</span></span>
+<span class="giallo-l"><span>│   │   └── _index.md</span></span>
+<span class="giallo-l"><span>│   └── archive/</span></span>
+<span class="giallo-l"><span>│       └── _index.md</span></span>
+<span class="giallo-l"><span>└── blog/</span></span>
+<span class="giallo-l"><span>    ├── _index.md</span></span>
+<span class="giallo-l"><span>    └── …                      # 一篇文章 = 一个页面</span></span></code></pre><h2 id="xiang-mu-ye-mian">项目页面</h2>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="markdown"><span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"><span>title = &quot;quick-db&quot;</span></span>
+<span class="giallo-l"><span>date = 2023-06-01          # 项目启动时间（展示为 2023-06）</span></span>
+<span class="giallo-l"><span>updated = 2026-09-01       # 最近更新时间（update_date 排序依据，展示为 2026-09）</span></span>
+<span class="giallo-l"><span>[</span><span style="color: #032F62;text-decoration: underline;">extra</span><span>]</span></span>
+<span class="giallo-l"><span>tags = [&quot;Rust&quot;, &quot;Storage&quot;, &quot;Embedded&quot;]</span></span>
+<span class="giallo-l"><span>timeline = [&quot;2023-06 项目启动&quot;, &quot;2026-09 发布 2.0&quot;]</span></span>
+<span class="giallo-l"><span>links = [{ name = &quot;仓库&quot;, url = &quot;https://github.com/me/quick-db&quot; }]</span></span>
+<span class="giallo-l"><span>changelog = [&quot;2026-09 v2.0 重写索引结构&quot;]</span></span>
+<span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>项目简介（正文，支持 Markdown）。</span></span></code></pre>
+<ul>
+<li><code>extra.timeline</code>、<code>extra.links</code>、<code>extra.changelog</code> 均可省略，详情页会省略对应区块；</li>
+<li>正文第一段同时作为卡片简介：列表卡片默认截断两行，悬停卡片会浮出完整简介（无滚动条、完整显示）。</li>
+</ul>
+<h2 id="pai-xu-she-ding">排序设定</h2>
+<p>排序由各状态板块（或博客 section）<code>_index.md</code> 的 <code>sort_by</code> 控制，修改即生效：</p>
+<table><thead><tr><th>sort_by 值</th><th>排序规则</th></tr></thead><tbody>
+<tr><td><code>update_date</code></td><td>按「最近更新」降序（主题默认，近期活跃优先）</td></tr>
+<tr><td><code>date</code></td><td>按「发布/起始日期」降序</td></tr>
+<tr><td><code>title</code></td><td>按标题排序</td></tr>
+<tr><td><code>weight</code></td><td><strong>手动排序</strong>：在每篇项目/文章 front matter 中添加 <code>weight = 1</code>（数字小者在前），可完全自定义顺序</td></tr>
+</tbody></table>
+<p>默认模板未写入 <code>weight</code> 字段——使用 <code>weight</code> 排序时需为该板块下的每篇内容手动补上。</p>
+<h2 id="zhuang-tai-ban-kuai-mu-lu">状态板块目录</h2>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="markdown"><span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"><span>title = &quot;毕业项目&quot;          # 板块名（tab 与徽章文字）</span></span>
+<span class="giallo-l"><span>description = &quot;已完成并稳定维护的项目，优先展示。&quot;</span></span>
+<span class="giallo-l"><span>sort_by = &quot;update_date&quot;     # 排序规则</span></span>
+<span class="giallo-l"><span>paginate_by = 6             # 每页卡片数</span></span>
+<span class="giallo-l"><span>weight = 1                  # tab 顺序</span></span>
+<span class="giallo-l"><span>+++</span></span></code></pre>
+<p>空板块（状态目录只有 <code>_index.md</code>、没有项目）正常构建，显示「该分类下暂无项目」。</p>
+<h2 id="xin-zeng-zhuang-tai-ban-kuai">新增状态板块</h2>
+<ol>
+<li>在 <code>content/projects/</code> 下新建目录与 <code>_index.md</code>（指定新的 <code>weight</code>）；</li>
+<li>在 <code>themes/forge/sass/forge.scss</code> 中为新状态补徽章配色与页内切换规则（参照 <code>.badge.graduate</code> 系列与 <code>#graduate:target ~ .tabs</code> 系列规则）；</li>
+<li>在 <code>templates/components/tabs.html</code> 的 <code>status_tabs</code> 组件中增加一个 <code>tab</code> 条目；</li>
+<li>在 <code>templates/components/panels.html</code> 使用处（<code>index.html</code> 与 <code>section.html</code>）为新状态各增加一个 <code>board_panel</code> 面板。</li>
+</ol>
+<h2 id="bo-ke">博客</h2>
+<p>博客内容位于 <code>content/blog/</code>，博客样式在独立的 <code>sass/blog.scss</code> 中（主色 <code>#2d809a</code>，与作品区青色系协调），仅博客相关页面（列表/文章/taxonomy）加载，作品页面不受影响。</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="markdown"><span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"><span>title = &quot;文章标题&quot;</span></span>
+<span class="giallo-l"><span>date = 2026-06-18          # 发布日期（列表排序依据）</span></span>
+<span class="giallo-l"><span>updated = 2026-07-01       # 可选：最近修改</span></span>
+<span class="giallo-l"><span>description = &quot;摘要（可选，列表卡片展示；缺省取正文截断）&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[</span><span style="color: #032F62;text-decoration: underline;">taxonomies</span><span>]</span></span>
+<span class="giallo-l"><span>tags = [&quot;Git&quot;, &quot;SSH&quot;]</span></span>
+<span class="giallo-l"><span>categories = [</span><span style="color: #032F62;text-decoration: underline;">&quot;教程&quot;</span><span>]</span></span>
+<span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>正文 Markdown。代码块、引用块、表格、图片均按主题排版风格渲染。</span></span></code></pre>
+<p>标签/分类聚合页由 zola taxonomy 自动生成（<code>/tags/</code>、<code>/categories/</code> 及各条目页），需在 <code>zola.toml</code> 的 <code>taxonomies</code> 中声明；文章 meta 行中的标签/分类文字可直接点击跳转聚合页。</p>
+<h2 id="guan-yu-ye">关于页</h2>
+<p><code>content/about.md</code> 即「关于」页，需指定模板：</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="markdown"><span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"><span>title = &quot;关于&quot;</span></span>
+<span class="giallo-l"><span>template = &quot;about.html&quot;</span></span>
+<span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>正文 Markdown，按主题排版风格渲染。</span></span></code></pre>
+<p>导航入口见 <code>[extra.nav].links</code>。</p>
+</div>
+    
+    <div class="blog-foot">
+      <span class="foot-group"><span class="foot-label">标签: </span>
+        <a href="https://forge-demo.idev.top/tags/zola/">Zola</a>, <a href="https://forge-demo.idev.top/tags/forge/">forge</a>
+      </span>
+    </div>
+    
+    <p><a class="back" href="https://forge-demo.idev.top/blog/">← 返回列表</a></p>
+  </article>
+</div>
+
+
+<footer>&copy; 2026 Forge Demo · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a></footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+
+<script>
+// 代码块一键复制：为每个 pre 注入右上角复制按钮，点击复制全部代码文本
+(function(){
+  document.querySelectorAll('.blog-content pre').forEach(function(pre){
+    var btn=document.createElement('button');
+    btn.className='copy-btn';btn.type='button';btn.textContent='复制';
+    btn.addEventListener('click',function(){
+      var text=pre.innerText.replace(/复制$/, '');
+      var code=pre.querySelector('code');
+      if(code)text=code.innerText;
+      (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(text):Promise.reject()).then(function(){
+        btn.textContent='已复制';btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);
+      }).catch(function(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');btn.textContent='已复制';btn.classList.add('copied');
+          setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);}catch(e){}
+        document.body.removeChild(ta);
+      });
+    });
+    pre.appendChild(btn);
+  });
+})();
+</script>
+
+</body>
+</html>

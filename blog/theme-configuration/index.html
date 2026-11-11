@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>forge 主题配置详解 · forge 主题示例站</title>
+<link rel="stylesheet" href="https://forge-demo.idev.top/forge.css">
+<link rel="icon" href="https://forge-demo.idev.top/favicon.ico">
+
+
+<meta name="theme-color" content="#0e7490">
+<link rel="stylesheet" href="https://forge-demo.idev.top/blog.css">
+
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      <div class="brand">Forge Demo</div>
+      <h1><a class="site-title" href="https://forge-demo.idev.top/">forge 主题示例站</a></h1>
+      <p>forge 主题示例站：收录示例项目的开发、孵化与归档。</p>
+    </div>
+    <nav class="nav">
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top">首页</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/projects">作品</a>
+      
+      
+      
+      <a class="nav-item active" href="https://forge-demo.idev.top/blog">博客</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/categories">分类</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/tags">标签</a>
+      
+      
+      
+      <a class="nav-item " href="https://forge-demo.idev.top/about">关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+<div class="wrap blog">
+  <article class="single-post">
+    <h1>forge 主题配置详解</h1>
+    <div class="blog-meta">
+      <time>发布于 2026-11-10</time>
+      
+      
+      <span class="foot-group"><span class="foot-label">分类: </span>
+        <a href="https://forge-demo.idev.top/categories/shi-yong-wen-dang/">使用文档</a>
+      </span>
+      
+    </div>
+    <div class="blog-content"><p>本文是 forge 主题的配置参考：安装步骤与 <code>zola.toml</code> 全部配置项。所有 <code>[extra]</code> 配置项都有主题默认值（见主题 <code>theme.toml</code>），站点配置中只需覆盖想改的项。</p>
+<h2 id="an-zhuang">安装</h2>
+<ol>
+<li>克隆主题仓库并将主题复制到你的站点 <code>themes/forge/</code>：</li>
+</ol>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="shellscript"><span class="giallo-l"><span style="color: #6F42C1;">git</span><span style="color: #032F62;"> clone https://github.com/jetsung/zola-forge.git</span></span>
+<span class="giallo-l"><span style="color: #6F42C1;">cp</span><span style="color: #005CC5;"> -r</span><span style="color: #032F62;"> zola-forge/themes/forge</span><span style="color: #D73A49;"> &lt;</span><span style="color: #032F62;">你的站</span><span>点</span><span style="color: #D73A49;">&gt;</span><span style="color: #032F62;">/themes/forge</span></span></code></pre>
+<ol start="2">
+<li>在站点 <code>zola.toml</code> 中启用主题、配置 taxonomy：</li>
+</ol>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="toml"><span class="giallo-l"><span>base_url =</span><span style="color: #032F62;"> &quot;https://example.com&quot;</span></span>
+<span class="giallo-l"><span>title =</span><span style="color: #032F62;"> &quot;我的小站&quot;</span></span>
+<span class="giallo-l"><span>default_language =</span><span style="color: #032F62;"> &quot;zh&quot;</span></span>
+<span class="giallo-l"><span>theme =</span><span style="color: #032F62;"> &quot;forge&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>taxonomies = [</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;tags&quot;</span><span>, paginate_by =</span><span style="color: #005CC5;"> 10</span><span> },</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;categories&quot;</span><span>, paginate_by =</span><span style="color: #005CC5;"> 10</span><span> },</span></span>
+<span class="giallo-l"><span>]</span></span></code></pre>
+<ol start="3">
+<li>创建内容目录（见《内容组织与状态板块》）并写入个人资料，然后 <code>zola serve</code> 预览。</li>
+</ol>
+<h2 id="zui-xiao-ke-yun-xing-shi-li">最小可运行示例</h2>
+<p>只有「个人资料 + 一个作品板块」即可构建：</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="toml"><span class="giallo-l"><span style="color: #6A737D;"># zola.toml</span></span>
+<span class="giallo-l"><span>base_url =</span><span style="color: #032F62;"> &quot;https://example.com&quot;</span></span>
+<span class="giallo-l"><span>title =</span><span style="color: #032F62;"> &quot;我的小站&quot;</span></span>
+<span class="giallo-l"><span>default_language =</span><span style="color: #032F62;"> &quot;zh&quot;</span></span>
+<span class="giallo-l"><span>theme =</span><span style="color: #032F62;"> &quot;forge&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[</span><span style="color: #6F42C1;">extra</span><span>.</span><span style="color: #6F42C1;">profile</span><span>]</span></span>
+<span class="giallo-l"><span>name =</span><span style="color: #032F62;"> &quot;你的名字&quot;</span></span>
+<span class="giallo-l"><span>bio =</span><span style="color: #032F62;"> &quot;一句话介绍。&quot;</span></span></code></pre><pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="markdown"><span class="giallo-l"><span style="color: #6A737D;">&lt;!-- content/projects/graduate/_index.md --&gt;</span></span>
+<span class="giallo-l"><span>+++</span></span>
+<span class="giallo-l"><span>title = &quot;毕业项目&quot;</span></span>
+<span class="giallo-l"><span>+++</span></span></code></pre><h2 id="extra-ji-chu-pei-zhi"><code>[extra]</code> 基础配置</h2>
+<table><thead><tr><th>配置项</th><th>默认值</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>home_type</code></td><td><code>"projects"</code></td><td>首页模式：<code>projects</code>（作品展示）/ <code>blog</code>（个人资料 + 博客列表）/ <code>mixed</code>（作品 + 博客混合）</td></tr>
+<tr><td><code>home_blog_count</code></td><td><code>5</code></td><td>blog/mixed 模式下主页展示的最近文章数量</td></tr>
+<tr><td><code>site_brand</code></td><td>—</td><td>头部品牌行文字，设为 <code>""</code> 可隐藏</td></tr>
+<tr><td><code>site_subtitle</code></td><td>—</td><td>头部副标题文字；未配置时取 <code>content/_index.md</code> 的 <code>description</code></td></tr>
+<tr><td><code>footer_text</code></td><td><code>""</code></td><td>页脚文案，支持 HTML（版权文本、备案链接、统计代码等）；<strong>留空时显示默认版权与主题信息</strong>（<code>© 年份 {profile.name} · Powered by Zola &amp; forge</code>，Zola 链接官网，forge 链接主题 GitHub 仓库）</td></tr>
+<tr><td><code>featured_count</code></td><td><code>6</code></td><td>主页精选项目数量（最近更新的毕业项目）；≥ 4 时以跑马灯循环展示，否则静态网格</td></tr>
+<tr><td><code>home_default_status</code></td><td><code>"graduate"</code></td><td>主页默认展示的状态板块（对应 <code>content/projects/</code> 下子目录名）</td></tr>
+</tbody></table>
+<h2 id="extra-nav"><code>[extra.nav]</code></h2>
+<p>头部导航菜单，<code>path</code> 为站内相对路径：</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span style="color: #6F42C1;">extra</span><span>.</span><span style="color: #6F42C1;">nav</span><span>]</span></span>
+<span class="giallo-l"><span>links = [</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;首页&quot;</span><span>, path =</span><span style="color: #032F62;"> &quot;/&quot;</span><span> },</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;作品&quot;</span><span>, path =</span><span style="color: #032F62;"> &quot;/projects/&quot;</span><span> },</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;博客&quot;</span><span>, path =</span><span style="color: #032F62;"> &quot;/blog/&quot;</span><span> },</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;分类&quot;</span><span>, path =</span><span style="color: #032F62;"> &quot;/categories/&quot;</span><span> },</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;标签&quot;</span><span>, path =</span><span style="color: #032F62;"> &quot;/tags/&quot;</span><span> },</span></span>
+<span class="giallo-l"><span>    { name =</span><span style="color: #032F62;"> &quot;关于&quot;</span><span>, path =</span><span style="color: #032F62;"> &quot;/about/&quot;</span><span> },</span></span>
+<span class="giallo-l"><span>]</span></span></code></pre>
+<p>当前栏目按路径前缀自动高亮；移动端（&lt; 768px）导航折叠至头部下方，纯 CSS 实现。</p>
+<h2 id="extra-profile"><code>[extra.profile]</code></h2>
+<p>个人介绍区：</p>
+<table><thead><tr><th>配置项</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>enable</code></td><td>是否启用（<code>false</code> 时主页与板块页整体省略该区块）</td></tr>
+<tr><td><code>avatar</code></td><td>头像字母（圆角方块中的单字）</td></tr>
+<tr><td><code>name</code> / <code>role</code> / <code>bio</code></td><td>姓名 / 一句话身份 / 简介</td></tr>
+<tr><td><code>skills</code></td><td>技能标签列表</td></tr>
+<tr><td><code>start_year</code></td><td>开源年数 = 当前年份 − <code>start_year</code></td></tr>
+<tr><td><code>contacts</code></td><td>联系链接列表 <code>{ name = "...", url = "..." }</code></td></tr>
+</tbody></table>
+<h2 id="extra-favicon"><code>[extra.favicon]</code></h2>
+<p>站点 <code>static/</code> 目录下的图标与 PWA 资源；留空则不输出对应 <code>link</code>：</p>
+<table><thead><tr><th>配置项</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>ico</code></td><td>favicon 文件名</td></tr>
+<tr><td><code>apple</code></td><td>apple-touch-icon 文件名</td></tr>
+<tr><td><code>manifest</code></td><td>PWA manifest 文件名</td></tr>
+<tr><td><code>theme_color</code></td><td>PWA 主题色（浏览器 UI / 安装横幅）</td></tr>
+</tbody></table>
+<h2 id="extra-pwa"><code>[extra.pwa]</code></h2>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span style="color: #6F42C1;">extra</span><span>.</span><span style="color: #6F42C1;">pwa</span><span>]</span></span>
+<span class="giallo-l"><span>enabled =</span><span style="color: #005CC5;"> true</span><span style="color: #6A737D;">   # Service Worker 离线缓存 + 注册脚本；false 时构建产物零 JS</span></span></code></pre>
+<p>开启后已访问资源离线缓存（stale-while-revalidate），断网后已访问页面仍可展示。</p>
+<h2 id="zhan-dian-ji-markdown-jian-yi">站点级 <code>[markdown]</code> 建议</h2>
+<p>示例站的推荐配置：</p>
+<pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span style="color: #6F42C1;">markdown</span><span>]</span></span>
+<span class="giallo-l"><span>github_alerts =</span><span style="color: #005CC5;"> true</span><span style="color: #6A737D;">                  # GFM 提示块与裸 URL 自动链接</span></span>
+<span class="giallo-l"><span>external_links_target_blank =</span><span style="color: #005CC5;"> true</span><span style="color: #6A737D;">    # 正文外链新标签页打开</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>[</span><span style="color: #6F42C1;">markdown</span><span>.</span><span style="color: #6F42C1;">highlighting</span><span>]</span></span>
+<span class="giallo-l"><span>theme =</span><span style="color: #032F62;"> &quot;github-light&quot;</span><span style="color: #6A737D;">                # 代码块语法高亮（Syntect，浅色）</span></span></code></pre></div>
+    
+    <div class="blog-foot">
+      <span class="foot-group"><span class="foot-label">标签: </span>
+        <a href="https://forge-demo.idev.top/tags/zola/">Zola</a>, <a href="https://forge-demo.idev.top/tags/forge/">forge</a>
+      </span>
+    </div>
+    
+    <p><a class="back" href="https://forge-demo.idev.top/blog/">← 返回列表</a></p>
+  </article>
+</div>
+
+
+<footer>&copy; 2026 Forge Demo · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a></footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+
+<script>
+// 代码块一键复制：为每个 pre 注入右上角复制按钮，点击复制全部代码文本
+(function(){
+  document.querySelectorAll('.blog-content pre').forEach(function(pre){
+    var btn=document.createElement('button');
+    btn.className='copy-btn';btn.type='button';btn.textContent='复制';
+    btn.addEventListener('click',function(){
+      var text=pre.innerText.replace(/复制$/, '');
+      var code=pre.querySelector('code');
+      if(code)text=code.innerText;
+      (navigator.clipboard&&navigator.clipboard.writeText?navigator.clipboard.writeText(text):Promise.reject()).then(function(){
+        btn.textContent='已复制';btn.classList.add('copied');
+        setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);
+      }).catch(function(){
+        var ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();
+        try{document.execCommand('copy');btn.textContent='已复制';btn.classList.add('copied');
+          setTimeout(function(){btn.textContent='复制';btn.classList.remove('copied');},1500);}catch(e){}
+        document.body.removeChild(ta);
+      });
+    });
+    pre.appendChild(btn);
+  });
+})();
+</script>
+
+</body>
+</html>
