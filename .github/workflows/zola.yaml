@@ -1,0 +1,184 @@
+# Sample workflow for building and deploying a Zola site to GitHub Pages
+name: Deploy Zola site to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - .github/workflows/zola.yaml
+      - templates/**
+      - exampleSite/**
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# 同一分支仅保留最新一次文档部署，避免旧 run 覆盖新内容
+concurrency:
+  group: docs-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  # 从 github.com/<owner>/<repo> 提取短名，如 jetsung/unidns → unidns
+  REPO: ${{ github.event.repository.name }}
+
+jobs:
+  # Build job
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Zola CLI
+        run: |
+          ZOLA_VERSION=$(curl -sL -o /dev/null -w %{url_effective} https://github.com/getzola/zola/releases/latest | xargs basename)
+          curl -sL -o ${{ runner.temp }}/zola.tar.gz "https://github.com/getzola/zola/releases/download/${ZOLA_VERSION}/zola-${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+          sudo tar -xvzf ${{ runner.temp }}/zola.tar.gz -C /usr/local/bin
+          zola --version
+
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      # 主题仓库本身即工作区，软链到 exampleSite/themes 后原地构建
+      - name: Build with Zola
+        env:
+          TZ: CST-8
+        run: |
+          mkdir -p exampleSite/themes
+          ln -sfn "$(pwd)" exampleSite/themes/forge
+          cd exampleSite
+          zola build
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./exampleSite/public
+
+      - name: Pack site
+        run: tar -czf docs-site.tar.gz -C ./exampleSite/public .
+
+      - name: Upload docs site artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: docs-site
+          path: docs-site.tar.gz
+          retention-days: 1
+
+  ### GitHub Pages
+  publish-pages:
+    name: Deploy · gh-pages branch
+    needs: [build-docs]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download docs site
+        uses: actions/download-artifact@v8
+        with:
+          name: docs-site
+          path: artifact/
+
+      - name: Unpack docs site
+        run: |
+          mkdir -p site
+          tar -xzf artifact/docs-site.tar.gz -C site
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          cname: ${{ vars.PAGES_DOMAIN }}
+
+  ### SSH Server WEB
+  publish-ssh:
+    name: Deploy · SSH
+    needs: [build-docs]
+    if: ${{ vars.ENABLE_SSH_DEPLOY == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download docs site
+        uses: actions/download-artifact@v8
+        with:
+          name: docs-site
+          path: artifact/
+
+      - name: Unpack docs site
+        run: |
+          mkdir -p site
+          tar -xzf artifact/docs-site.tar.gz -C site
+
+      - name: Set up SSH
+        uses: LuisEnMarroquin/setup-ssh-action@v3.0.0
+        with:
+          ORIGIN: ${{ secrets.SSH_HOSTNAME }}
+          SSHKEY: ${{ secrets.SSH_KEY }}
+          NAME: webserver
+          PORT: ${{ secrets.SSH_PORT }}
+          USER: ${{ secrets.SSH_USERNAME }}
+
+      - name: Deploy the website
+        env:
+          WEBROOT: /data/wwwroot/${{ env.REPO }}
+        run: |
+          # setup-ssh-action 生成的 known_hosts/access 需补一空行，避免 scp 误判
+          echo "" >> ~/.ssh/access
+          ssh webserver "rm -rf $WEBROOT && mkdir -p $WEBROOT"
+          scp -r site/* "webserver:$WEBROOT"
+
+  ### EdgeOne Pages
+  publish-edgeone:
+    name: Deploy · EdgeOne
+    needs: [build-docs]
+    runs-on: ubuntu-latest
+    env:
+      EDGEONE_API_TOKEN: ${{ secrets.EDGEONE_API_TOKEN }}
+    steps:
+      # jobs.<job_id>.if 不可用 secrets，改为在 step 内判断再门控后续步骤
+      - name: Check EdgeOne token
+        id: cred
+        run: |
+          if [ -n "$EDGEONE_API_TOKEN" ]; then
+            echo "present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "present=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::EDGEONE_API_TOKEN not set, skip EdgeOne deploy"
+          fi
+
+      - name: Download docs site
+        if: steps.cred.outputs.present == 'true'
+        uses: actions/download-artifact@v8
+        with:
+          name: docs-site
+          path: artifact/
+
+      - name: Unpack docs site
+        if: steps.cred.outputs.present == 'true'
+        run: |
+          mkdir -p site
+          tar -xzf artifact/docs-site.tar.gz -C site
+
+      - name: Set up Node.js
+        if: steps.cred.outputs.present == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install EdgeOne CLI
+        if: steps.cred.outputs.present == 'true'
+        run: npm install -g edgeone
+
+      - name: Deploy to EdgeOne Pages
+        if: steps.cred.outputs.present == 'true'
+        run: edgeone makers deploy ./site --name "${{ env.REPO }}" --site global --area overseas --token "${{ env.EDGEONE_API_TOKEN }}"
+
