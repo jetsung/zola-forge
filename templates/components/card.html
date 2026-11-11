@@ -1,7 +1,7 @@
 {# 项目卡片：板块页与主页预览用 card；精选区用 fcard（跑马灯副本需 aria_hidden=true）；原生 title 提示：完整简介按 22 字/行显式换行，稳定为多行方块（design D11 终版） #}
 {% component card(page, key, label) %}
 {% set text = page.content | striptags | trim %}
-<a class="card" href="/{{ page.path }}">
+<a class="card" href="{{ page.path }}">
   <span class="badge {{ key }}">{{ label }}</span>
   <span class="tip">{{ text }}</span>
   <h3>{{ page.title }}</h3>
@@ -12,7 +12,7 @@
 
 {% component fcard(page, aria_hidden=false) %}
 {% set text = page.content | striptags | trim %}
-<a class="fcard" href="/{{ page.path }}" {% if aria_hidden %}aria-hidden="true" tabindex="-1"{% endif %}>
+<a class="fcard" href="{{ page.path }}" {% if aria_hidden %}aria-hidden="true" tabindex="-1"{% endif %}>
   <span class="star">★ 精选</span>
   <span class="tip">{{ text }}</span>
   <h5>{{ page.title }}</h5>
