@@ -1,4 +1,5 @@
-base_url = "https://forge-demo.idev.top"
+# Zola 强制要求非空 base_url（用于 RSS/sitemap 等）；主题模板全部使用根相对路径，HTML 不引用该域名
+base_url = "https://example.com"
 
 title = "forge 主题示例站"
 

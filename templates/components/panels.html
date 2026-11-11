@@ -34,9 +34,9 @@
     </div>
     {% endif %}
     {% if paged %}
-    {{ <pager p={paginator} /> }}
+    {{ <pager p={paginator} root={config.base_url ~ "/"} /> }}
     {% elif sec %}
-    <div class="view-all-wrap"><a class="view-all" href="{{ get_url(path='projects/', trailing_slash=true) }}">查看所有项目</a></div>
+    <div class="view-all-wrap"><a class="view-all" href="/projects/">查看所有项目</a></div>
     {% endif %}
   </div>
 </div>

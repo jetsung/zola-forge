@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block css %}<link rel="stylesheet" href="/blog.css">{% endblock css %}
 {% block title %}{{ page.title }} · {{ config.title }}{% endblock title %}
 
 {% block content %}
@@ -12,7 +12,7 @@
       {% if page.updated %}<time>更新于 {{ page.updated | date(format="%Y-%m-%d") }}</time>{% endif %}
       {% if page.taxonomies.categories %}
       <span class="foot-group"><span class="foot-label">分类: </span>
-        {% for cat in page.taxonomies.categories %}<a href="{{ get_taxonomy_url(kind='categories', term=cat) }}">{{ cat }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+        {% for cat in page.taxonomies.categories %}<a href="/categories/{{ cat | slugify }}/">{{ cat }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
       </span>
       {% endif %}
     </div>
@@ -20,11 +20,11 @@
     {% if page.taxonomies.tags %}
     <div class="blog-foot">
       <span class="foot-group"><span class="foot-label">标签: </span>
-        {% for tag in page.taxonomies.tags %}<a href="{{ get_taxonomy_url(kind='tags', term=tag) }}">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+        {% for tag in page.taxonomies.tags %}<a href="/tags/{{ tag | slugify }}/">{{ tag }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
       </span>
     </div>
     {% endif %}
-    <p><a class="back" href="{{ get_url(path='blog/', trailing_slash=true) }}">← 返回列表</a></p>
+    <p><a class="back" href="/blog/">← 返回列表</a></p>
   </article>
 </div>
 {% endblock content %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block css %}<link rel="stylesheet" href="/blog.css">{% endblock css %}
 {% block title %}{% set cn_name = "分类" if taxonomy.name == "categories" else "标签" %}{{ cn_name }} · {{ config.title }}{% endblock title %}
 
 {% block content %}
@@ -12,7 +12,7 @@
   </div>
   <div class="blog-terms">
     {% for t in terms %}
-    <a class="blog-term" href="{{ t.permalink }}">{{ t.name }}<span class="count">{{ t.page_count }}</span></a>
+    <a class="blog-term" href="/{{ t.path }}">{{ t.name }}<span class="count">{{ t.page_count }}</span></a>
     {% endfor %}
   </div>
 </div>

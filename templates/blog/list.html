@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block css %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endblock css %}
+{% block css %}<link rel="stylesheet" href="/blog.css">{% endblock css %}
 {% block title %}博客 · {{ config.title }}{% endblock title %}
 
 {% block content %}
@@ -21,6 +21,6 @@
     {% for p in posts %}{{ <blog_card page={p} /> }}{% endfor %}
   </div>
   {% endif %}
-  {% if paginator %}{{ <pager p={paginator} /> }}{% endif %}
+  {% if paginator %}{{ <pager p={paginator} root={config.base_url ~ "/"} /> }}{% endif %}
 </div>
 {% endblock content %}

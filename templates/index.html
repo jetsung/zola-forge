@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block css %}{% set ht = config.extra.home_type | default(value="projects") %}{% if ht == "blog" or ht == "mixed" %}<link rel="stylesheet" href="{{ get_url(path='blog.css') }}">{% endif %}{% endblock css %}
+{% block css %}{% set ht = config.extra.home_type | default(value="projects") %}{% if ht == "blog" or ht == "mixed" %}<link rel="stylesheet" href="/blog.css">{% endif %}{% endblock css %}
 {% block title %}{{ config.title }} · 个人作品展示{% endblock title %}
 
 {% block content %}
@@ -33,7 +33,7 @@
     {% endfor %}
   </div>
   {% if blog_sec.pages | length > config.extra.home_blog_count %}
-  <div class="view-all-wrap"><a class="view-all" href="{{ get_url(path='blog/', trailing_slash=true) }}">查看全部 {{ blog_sec.pages | length }} 篇文章 →</a></div>
+  <div class="view-all-wrap"><a class="view-all" href="/blog/">查看全部 {{ blog_sec.pages | length }} 篇文章 →</a></div>
   {% endif %}
   {% else %}
   <div class="empty">暂无文章</div>
@@ -50,7 +50,7 @@
         {{ <blog_card page={p} /> }}
       {% endfor %}
     </div>
-    <div class="view-all-wrap"><a class="view-all" href="{{ get_url(path='blog/', trailing_slash=true) }}">全部文章 →</a></div>
+    <div class="view-all-wrap"><a class="view-all" href="/blog/">全部文章 →</a></div>
     {% endif %}
     {{ <board_panel sec={graduate} key="graduate" current={default_status} is_paged={false} paginator={0} /> }}
     {{ <board_panel sec={incubate} key="incubate" current={default_status} is_paged={false} paginator={0} /> }}

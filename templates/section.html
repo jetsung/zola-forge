@@ -24,7 +24,7 @@
   </div>
   {% endif %}
   {% if paginator %}
-  {{ <pager p={paginator} /> }}
+  {{ <pager p={paginator} root={config.base_url ~ "/"} /> }}
   {% endif %}
 </div>
 {% endblock content %}
