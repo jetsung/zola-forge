@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://forge-demo.idev.top/</loc>
+        <loc>https://example.com/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/about/</loc>
+        <loc>https://example.com/about/</loc>
         <lastmod>2026-11-10</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/blog/</loc>
+        <loc>https://example.com/blog/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/blog/content-organization/</loc>
+        <loc>https://example.com/blog/content-organization/</loc>
         <lastmod>2026-11-10</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/blog/hello-asciinema/</loc>
+        <loc>https://example.com/blog/hello-asciinema/</loc>
         <lastmod>2026-11-10</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/blog/page/1/</loc>
+        <loc>https://example.com/blog/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/blog/theme-configuration/</loc>
+        <loc>https://example.com/blog/theme-configuration/</loc>
         <lastmod>2026-11-10</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/blog/theme-features/</loc>
+        <loc>https://example.com/blog/theme-features/</loc>
         <lastmod>2026-11-10</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/categories/</loc>
+        <loc>https://example.com/categories/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/categories/shi-li/</loc>
+        <loc>https://example.com/categories/shi-li/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/categories/shi-li/page/1/</loc>
+        <loc>https://example.com/categories/shi-li/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/categories/shi-yong-wen-dang/</loc>
+        <loc>https://example.com/categories/shi-yong-wen-dang/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/categories/shi-yong-wen-dang/page/1/</loc>
+        <loc>https://example.com/categories/shi-yong-wen-dang/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/</loc>
+        <loc>https://example.com/projects/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/archive/</loc>
+        <loc>https://example.com/projects/archive/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/graduate/</loc>
+        <loc>https://example.com/projects/graduate/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/graduate/demo-cli/</loc>
+        <loc>https://example.com/projects/graduate/demo-cli/</loc>
         <lastmod>2026-05-20</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/graduate/page/1/</loc>
+        <loc>https://example.com/projects/graduate/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/graduate/quick-db/</loc>
+        <loc>https://example.com/projects/graduate/quick-db/</loc>
         <lastmod>2026-09-01</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/incubate/</loc>
+        <loc>https://example.com/projects/incubate/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/incubate/page/1/</loc>
+        <loc>https://example.com/projects/incubate/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/projects/incubate/web-tools/</loc>
+        <loc>https://example.com/projects/incubate/web-tools/</loc>
         <lastmod>2026-11-01</lastmod>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/</loc>
+        <loc>https://example.com/tags/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/asciinema/</loc>
+        <loc>https://example.com/tags/asciinema/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/asciinema/page/1/</loc>
+        <loc>https://example.com/tags/asciinema/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/forge/</loc>
+        <loc>https://example.com/tags/forge/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/forge/page/1/</loc>
+        <loc>https://example.com/tags/forge/page/1/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/zola/</loc>
+        <loc>https://example.com/tags/zola/</loc>
     </url>
     <url>
-        <loc>https://forge-demo.idev.top/tags/zola/page/1/</loc>
+        <loc>https://example.com/tags/zola/page/1/</loc>
     </url>
 </urlset>
