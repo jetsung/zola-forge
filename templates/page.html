@@ -12,7 +12,7 @@
     <span class="badge {{ parent_key }}">{{ parent_sec.title }}</span>
     起始于 {{ page.date | date(format="%Y-%m") }}{% if page.extra.language %} · {{ page.extra.language }}{% endif %}
   </div>
-  <section><h4>简介</h4><div>{{ page.content | safe }}</div></section>
+  <section><h4>简介</h4><div class="prose">{{ page.content | safe }}</div></section>
   {% if page.extra.tags %}
   <section><h4>技术栈</h4><div class="tags">
     {% for t in page.extra.tags %}<span>{{ t }}</span>{% endfor %}
