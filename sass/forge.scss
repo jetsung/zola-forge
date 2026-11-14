@@ -119,6 +119,10 @@ body:not(:has(.panel:target)) .tab.current{background:var(--ink);color:#fff;bord
 .detail section{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-bottom:14px}
 .detail section h4{font-size:13px;color:var(--accent);font-family:var(--mono);letter-spacing:.08em;margin-bottom:8px}
 .detail section p{color:var(--ink);font-size:14px}
+/* 详情页 markdown 正文（简介）：全局 reset 清零了 ul 默认缩进，补回列表缩进避免圆点溢出卡片边框 */
+.prose ul,.prose ol{padding-left:20px;margin:4px 0}
+.prose li{font-size:14px;color:var(--ink);margin-bottom:4px}
+.prose li::marker{color:var(--muted)}
 .tags span{display:inline-block;background:var(--accent-soft);color:var(--graduate);font-family:var(--mono);font-size:12px;padding:2px 10px;border-radius:6px;margin:0 6px 6px 0}
 .detail a{color:var(--accent);text-decoration:none}
 .detail a:hover{color:var(--ink)}

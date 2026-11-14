@@ -1,7 +1,7 @@
 {# 博客文章卡片：列表页与 taxonomy 页共用（DoIt summary 风格） #}
 {% component blog_card(page) %}
 <article class="blog-card">
-  <h2><a href="/{{ page.path }}">{{ page.title }}</a></h2>
+  <h2><a href="{{ page.path }}">{{ page.title }}</a></h2>
   <div class="blog-meta">
     <time>{{ page.date | date(format="%Y-%m-%d") }}</time>
     {% if page.taxonomies.categories %}
