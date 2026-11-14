@@ -8,29 +8,47 @@
 
 - zola ≥ 0.19（在 zola 0.23 / Tera v2 上开发验证）
 
-## 快速使用
+## 使用教程
 
-### 1. 克隆仓库
-
-```bash
-git clone https://github.com/jetsung/zola-forge.git
+1. 创建新项目
+```sh
+mkdir mysite
+cd mysite
+git init
 ```
 
-### 2. 引入你的站点
+2. 安装此主题
 
-将主题复制到站点 `themes/forge/`：
+> 在项目根目录下运行：
 
-```bash
-cp -r themes/forge <你的站点>/themes/forge
+```sh
+# 添加主题（未添加此主题时）
+git submodule add https://github.com/jetsung/zola-forge.git themes/forge
+
+# 首次使用（首次从 Git 拉取代码时）
+git submodule update --init --recursive
+
+# 拉取当前主题最新代码
+git submodule update --remote themes/forge
+
+# 拉取所有最新主题代码
+git submodule foreach git pull origin main
 ```
 
-### 3. 站点最小配置（zola.toml）
+3. 复制 `exampleSite`
+```sh
+cp -r themes/forge/exampleSite/* .
+```
+
+> `exampleSite` 含完整配置与示例内容（`theme = "forge"` 已指向主题目录），复制后即可直接运行。
+
+4. 设置站点配置（`zola.toml`）
 
 ```toml
 base_url = "https://example.com"
 title = "我的小站"
 default_language = "zh"
-theme = "forge"
+theme = "forge"                  # 复制 exampleSite 后已有，指向 themes/forge
 
 taxonomies = [
     { name = "tags", paginate_by = 10 },
@@ -42,12 +60,28 @@ name = "你的名字"
 bio = "一句话介绍你自己。"
 ```
 
-### 4. 创建内容并预览
+全部 `[extra]` 配置项见博客文章《主题配置详解》。
 
-按 [exampleSite/content/](exampleSite/content/) 的结构创建 `content/`（作品板块与博客），然后：
+5. 设置内容（`content/`）
 
-```bash
+```sh
+content
+├── about.md                     # 关于页（about.html 模板）
+├── projects/                    # 作品看板：graduate / incubate / archive / misc 四个状态目录
+│   └── graduate/<slug>.md       # 项目 front matter：title / date / updated / description / weight / [extra]
+└── blog/                        # 博客文章（标签 / 分类聚合）与 _index.md
+```
+
+内容结构与 front matter 详见博客文章《内容组织与状态板块》。
+
+6. 运行本地测试
+```sh
 zola serve   # http://127.0.0.1:1111
+```
+
+7. 构建项目
+```sh
+zola build
 ```
 
 ## exampleSite 示例站
