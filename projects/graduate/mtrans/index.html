@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mtrans · Docker 镜像远程复制 · forge 主题示例站</title>
+<link rel="stylesheet" href="/forge.css">
+<link rel="icon" href="/favicon.ico">
+
+
+<meta name="theme-color" content="#0e7490">
+
+
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      <div class="brand">Forge Demo</div>
+      <h1><a class="site-title" href="/">forge 主题示例站</a></h1>
+      <p>forge 主题示例站：收录示例项目的开发、孵化与归档。</p>
+    </div>
+    <nav class="nav">
+      
+      
+      
+      <a class="nav-item " href="/">首页</a>
+      
+      
+      
+      <a class="nav-item active" href="/projects/">作品</a>
+      
+      
+      
+      <a class="nav-item " href="/blog/">博客</a>
+      
+      
+      
+      <a class="nav-item " href="/categories/">分类</a>
+      
+      
+      
+      <a class="nav-item " href="/tags/">标签</a>
+      
+      
+      
+      <a class="nav-item " href="/about/">关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+
+
+
+<div class="detail">
+  <h2>Mtrans · Docker 镜像远程复制</h2>
+  <div class="statusline">
+    <span class="badge graduate">毕业项目</span>
+    起始于 2026-09 · Rust
+  </div>
+  <section><h4>简介</h4><div class="prose"><p>Docker 镜像复制工具：把源镜像复制到目标注册表，也可反向拉回本地。Rust 编写，单文件 CLI，支持 Windows / Linux / macOS 三端；可独立运行（<code>docker-mtrans</code>），也可作为 docker CLI 插件（<code>docker mtrans ...</code>）。</p>
+<ul>
+<li><strong>远程复制</strong>：复制一律经 GitHub Actions 工作流托管，本地不直连复制、不持有镜像层</li>
+<li><strong>凭据加密传输</strong>：以 Docker 登录态为源，凭据加密后传入工作流，<code>::add-mask::</code> 打掩码，不落配置文件、不打印到日志</li>
+<li><strong>三种目标组合模式</strong>：单仓库汇聚 / 仓库映射 / 固定中转，<code>sync</code> 与 <code>pull</code> 共用同一组合规则，保证往返对账</li>
+<li><strong>批量操作</strong>：<code>compose</code> 子命令从 Compose 文件提取镜像列表批量同步 / 拉取；<code>spull</code> 一步完成先同步再拉取</li>
+<li><strong>灵活覆盖</strong>：<code>sync</code> / <code>pull</code> / <code>spull</code> 支持单次覆盖目标注册表、组织、仓库与模式，临时换目标无需改配置</li>
+<li><strong>运维友好</strong>：<code>config</code> / <code>registry</code> / <code>passphrase</code> 等 TUI 向导，<code>ci</code> 输出工作流 YAML 模板；中英双语界面随系统语言切换</li>
+<li><strong>一键安装</strong>：<code>curl -fsSL https://mtrans.gcli.cn/install.sh | bash</code>，或 <code>cargo install mtrans</code>（crates.io / Git 仓库）</li>
+</ul>
+</div></section>
+  
+  <section><h4>技术栈</h4><div class="tags">
+    <span>Rust</span><span>Docker</span><span>bollard</span><span>GitHub Actions</span>
+  </div></section>
+  
+  
+  <section><h4>时间线</h4><ul class="timeline">
+    <li>2026-09-11 项目启动，发布 v0.1.0（远程复制 / 拉回 / 三种组合模式）</li><li>2026-09-15 v0.2.0：新增 compose 批量子命令、一键安装脚本与文档站点</li>
+  </ul></section>
+  
+  
+  <section><h4>链接与更新记录</h4>
+    
+    <div>
+      
+      <div><a href="https://mtrans.gcli.cn" target="_blank" rel="noopener">文档：https://mtrans.gcli.cn</a></div>
+      
+      <div><a href="https://git.jetsung.com/jetsung/mtrans" target="_blank" rel="noopener">MyCode：https://git.jetsung.com/jetsung/mtrans</a></div>
+      
+      <div><a href="https://atomgit.com/jetsung/mtrans" target="_blank" rel="noopener">AtomGit：https://atomgit.com/jetsung/mtrans</a></div>
+      
+      <div><a href="https://github.com/jetsung/mtrans" target="_blank" rel="noopener">GitHub：https://github.com/jetsung/mtrans</a></div>
+      
+    </div>
+    
+    
+  </section>
+  
+  <p><a class="back" href="/projects/graduate/">← 返回列表</a></p>
+</div>
+
+
+<footer>&copy; 2026 Forge Demo · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a></footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+
+</body>
+</html>

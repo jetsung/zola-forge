@@ -54,15 +54,19 @@
         <loc>https://example.com/projects/graduate/</loc>
     </url>
     <url>
-        <loc>https://example.com/projects/graduate/demo-cli/</loc>
-        <lastmod>2026-05-20</lastmod>
+        <loc>https://example.com/projects/graduate/mtrans/</loc>
+        <lastmod>2026-09-15</lastmod>
     </url>
     <url>
         <loc>https://example.com/projects/graduate/page/1/</loc>
     </url>
     <url>
-        <loc>https://example.com/projects/graduate/quick-db/</loc>
-        <lastmod>2026-09-01</lastmod>
+        <loc>https://example.com/projects/graduate/recur/</loc>
+        <lastmod>2026-11-09</lastmod>
+    </url>
+    <url>
+        <loc>https://example.com/projects/graduate/unidns/</loc>
+        <lastmod>2026-11-05</lastmod>
     </url>
     <url>
         <loc>https://example.com/projects/incubate/</loc>
@@ -71,8 +75,8 @@
         <loc>https://example.com/projects/incubate/page/1/</loc>
     </url>
     <url>
-        <loc>https://example.com/projects/incubate/web-tools/</loc>
-        <lastmod>2026-11-01</lastmod>
+        <loc>https://example.com/projects/incubate/xauth/</loc>
+        <lastmod>2026-04-23</lastmod>
     </url>
     <url>
         <loc>https://example.com/tags/</loc>

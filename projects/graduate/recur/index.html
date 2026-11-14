@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recur · 周期提醒 · forge 主题示例站</title>
+<link rel="stylesheet" href="/forge.css">
+<link rel="icon" href="/favicon.ico">
+
+
+<meta name="theme-color" content="#0e7490">
+
+
+</head>
+<body>
+
+<header id="top">
+  <div class="wrap">
+    <div class="head-text">
+      <div class="brand">Forge Demo</div>
+      <h1><a class="site-title" href="/">forge 主题示例站</a></h1>
+      <p>forge 主题示例站：收录示例项目的开发、孵化与归档。</p>
+    </div>
+    <nav class="nav">
+      
+      
+      
+      <a class="nav-item " href="/">首页</a>
+      
+      
+      
+      <a class="nav-item active" href="/projects/">作品</a>
+      
+      
+      
+      <a class="nav-item " href="/blog/">博客</a>
+      
+      
+      
+      <a class="nav-item " href="/categories/">分类</a>
+      
+      
+      
+      <a class="nav-item " href="/tags/">标签</a>
+      
+      
+      
+      <a class="nav-item " href="/about/">关于</a>
+      
+    </nav>
+  </div>
+</header>
+
+
+
+
+
+<div class="detail">
+  <h2>Recur · 周期提醒</h2>
+  <div class="statusline">
+    <span class="badge graduate">毕业项目</span>
+    起始于 2026-10 · Rust
+  </div>
+  <section><h4>简介</h4><div class="prose"><p>一款轻量的桌面周期提醒工具，基于 <a rel="noopener external" target="_blank" href="https://gpui-kit.com">GPUI Kit</a>（Rust）构建。为每个条目（API 配额重置、订阅 / VIP 到期、每 N 小时的例行任务）维护一个循环周期：实时显示 <code>HH:MM:SS</code> 倒计时，临近执行时先提醒一次、再按设定间隔周期提醒，时间点过后自动滚动进入下一个周期。</p>
+<ul>
+<li><strong>服务卡片列表</strong>：置顶 + 下次执行时间复合排序，每秒刷新，状态徽章一眼可辨</li>
+<li><strong>灵活计时</strong>：小时间隔支持小数（如 <code>5.5</code>），「指定执行时间 / 倒计时」两种输入模式随时切换，提醒阈值与周期提醒间隔可调</li>
+<li><strong>桌面集成</strong>：系统托盘常驻，关闭窗口仍在后台倒计时与提醒；全局通知开关，三类提醒标题支持 <code>{service}</code> 等占位符自定义</li>
+<li><strong>数据安全</strong>：本地 JSON 持久化，WebDAV 云端备份同步，配置导入 / 导出</li>
+<li><strong>命令行</strong>：<code>recur version / help / self-update</code>，可从 GitHub Releases 一键自升级</li>
+<li><strong>跨平台</strong>：Linux（deb / rpm 打包）、macOS（Universal <code>.app</code>，滚动 Release 一条命令安装）、Windows</li>
+</ul>
+</div></section>
+  
+  <section><h4>技术栈</h4><div class="tags">
+    <span>Rust</span><span>GPUI Kit</span><span>notify-rust</span><span>tray-icon</span>
+  </div></section>
+  
+  
+  <section><h4>时间线</h4><ul class="timeline">
+    <li>2026-10 项目启动，初版发布（原名「AI 配额重置倒计时」）</li><li>2026-10 v0.1.0：系统托盘常驻与三平台打包发布</li><li>2026-10 v0.2.0-beta.1：自升级、WebDAV 云备份与设置面板</li><li>2026-10-31 更名 Recur，发布 v0.2.0-beta.2</li><li>2026-11 统一「执行」术语，打磨三平台体验</li>
+  </ul></section>
+  
+  
+  <section><h4>链接与更新记录</h4>
+    
+    <div>
+      
+      <div><a href="https://git.jetsung.com/jetsung/recur" target="_blank" rel="noopener">MyCode：https://git.jetsung.com/jetsung/recur</a></div>
+      
+      <div><a href="https://atomgit.com/jetsung/recur" target="_blank" rel="noopener">AtomGit：https://atomgit.com/jetsung/recur</a></div>
+      
+      <div><a href="https://github.com/jetsung/recur" target="_blank" rel="noopener">GitHub：https://github.com/jetsung/recur</a></div>
+      
+    </div>
+    
+    
+  </section>
+  
+  <p><a class="back" href="/projects/graduate/">← 返回列表</a></p>
+</div>
+
+
+<footer>&copy; 2026 Forge Demo · Powered by <a href="https://www.getzola.org" target="_blank" rel="noopener">Zola</a> &amp; <a href="https://github.com/jetsung/zola-forge" target="_blank" rel="noopener">forge</a></footer>
+<a class="back-to-top" href="#top" aria-label="返回顶部">↑</a>
+
+</body>
+</html>
