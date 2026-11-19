@@ -8,24 +8,18 @@
     <h2>{{ section.title }}</h2>
     <p class="desc">{{ section.description }}</p>
   </div>
-  {% set graduate = get_section(path="projects/graduate/_index.md", allow_missing=true) %}
-  {% set incubate = get_section(path="projects/incubate/_index.md", allow_missing=true) %}
-  {% set archive = get_section(path="projects/archive/_index.md", allow_missing=true) %}
-  {% set misc = get_section(path="projects/misc/_index.md", allow_missing=true) %}
-  {% for sec in [graduate, incubate, archive, misc] %}
-    {% if sec %}
+  {# 分组列表：遍历 content/projects/ 下的分组子目录（各 _index.md 的 weight 决定顺序），分组全部可自定义 #}
+  {% for sub in section.subsections %}
+    {% set sec = get_section(path=sub, allow_missing=true) %}
+    {# 空分组（0 项目）不显示 #}
+    {% if sec and sec.pages | length > 0 %}
     {% set key = sec.components | last %}
-    {% set total = sec.pages | length %}
-    <h3 class="group-title">{{ sec.title }}<span class="count">{{ total }}</span></h3>
-    {% if total == 0 %}
-    <div class="empty">该分类下暂无项目</div>
-    {% else %}
+    <h3 class="group-title">{{ sec.title }}<span class="count">{{ sec.pages | length }}</span></h3>
     <div class="grid">
       {% for p in sec.pages %}
       {{ <card page={p} key={key} label={sec.title} /> }}
       {% endfor %}
     </div>
-    {% endif %}
     {% endif %}
   {% endfor %}
 </div>

@@ -28,7 +28,7 @@ categories = ["使用文档"]
 
 - 状态入口是**页内锚点切换**（CSS `:target`，切换时个人信息与精选项目保持可见，支持 `/#archive` 式深链接），分页是链接导航，详情是独立页面；
 - 列表卡片默认截断两行简介，**悬停卡片浮出完整简介**（`.tip` 浮层，无滚动条）；
-- 精选项目 `featured_count ≥ 4` 时以跑马灯循环展示（双份内容 + `translateX(-50%)` 无缝循环，纯 CSS，`prefers-reduced-motion` 下降级为横向滚动）；
+- 精选项目由项目 front matter 的 `[extra] featured = true` 标志决定，精选数量 ≥ 4 时以跑马灯循环展示（双份内容 + `translateX(-50%)` 无缝循环，纯 CSS，`prefers-reduced-motion` 下降级为横向滚动）；
 - sticky footer：页脚通过纯 CSS（`body` flex 布局）固定在视口底部，内容不足一屏的页面页脚也贴底。
 
 ## favicon 与 PWA
@@ -82,6 +82,6 @@ templates/
 
 ## 其他说明
 
-- 空板块（状态目录只有 `_index.md`）正常构建，显示「该分类下暂无项目」；
+- 空板块（状态目录只有 `_index.md`）正常构建，但项目数为 0 的分组在首页、导航 tab、统计区与列表页中**自动隐藏**；
 - 所有过渡动画在 `prefers-reduced-motion: reduce` 下禁用；
 - 提交到 zola 主题画廊前需补一张 `screenshot.png`（≤ 2000×1000）。

@@ -49,8 +49,8 @@ description: 为 forge 主题站点添加/修改内容——关于页、作品�
   | `archive` | 归档项目（已停维护） | 3 |
   | `misc` | 未收录（小型项目/脚本） | 4 |
 
-  模板已为这 4 个状态内置支持（`templates/components/tabs.html`、`templates/projects/list.html`、`templates/index.html`）。确需新增状态板块时，按《内容组织与状态板块》的 4 步操作：新建目录与 `_index.md`（指定新 weight）→ 在 `sass/forge.scss` 补徽章配色与 `:target` 切换规则 → 在 `templates/components/tabs.html` 的 `status_tabs` 增加 tab → 在 `index.html` / `section.html` 使用 `panels.html` 处增加面板。
-- 状态板块 `_index.md`：`title`、`description`、`sort_by = "update_date"`、`paginate_by = 6`、`weight = 数字`；空板块（只有 `_index.md`）正常构建，显示「该分类下暂无项目」
+  分组看板**不固定**为这 4 个：模板遍历 `content/projects/` 下的分组子目录（`templates/components/tabs.html`、`templates/projects/list.html`、`templates/index.html`、`templates/components/about.html`），分组全部可自定义——新增分组即新建目录与 `_index.md`（同上字段），排序由各 `_index.md` 的 `weight` 数字决定（小者在前）。首页各分组逐组完整平铺展示，分组 `_index.md` 设置 `[extra] home_show = false` 可不在首页显示（列表页不受影响）。默认 4 个分组的徽章有专属配色（`sass/forge.scss` 的 `.badge.<key>`），其它分组使用默认配色。删除分组时移除对应目录，并确保 `home_default_status` 指向仍存在的分组。
+- 状态板块 `_index.md`：`title`、`description`、`sort_by = "update_date"`、`paginate_by = 6`、`weight = 数字`；空板块（只有 `_index.md`）正常构建，但项目数为 0 的分组在首页、导航 tab、统计区与列表页中自动隐藏
 - slug：小写连字符命名；zola 会把文件名中的下划线转为连字符（如 `php_extension_tutorial.md` 的 URL 是 `/blog/php-extension-tutorial/`）
 - front matter：
 
@@ -67,6 +67,7 @@ description: 为 forge 主题站点添加/修改内容——关于页、作品�
   timeline = ["2023-06 项目启动", "2026-09 发布 2.0"]   # 必需补齐：详情页「时间线」；无记录时给 ["<date> 项目启动"] 占位
   links = [{ name = "仓库", url = "https://…" }]        # 必需补齐：详情页「链接与更新记录」，可多个；暂无则给空数组 []
   changelog = ["2026-09 v2.0 …"]                        # 必需补齐：同区块的更新记录；暂无则给空数组 []
+  featured = true                                       # 可选：设为 true 表示精选项目，主页精选区展示；默认不精选
   +++
   ```
 

@@ -1,21 +1,25 @@
-{# 精选项目：最近更新的毕业项目前 limit 个；数量足够时以跑马灯循环滚动，否则回退静态网格（design D9） #}
-{% component featured(pages, limit) %}
-{% if pages %}
-  {% set total = pages | length %}
-  {% set show = limit if total > limit else total %}
-  {% if show >= 4 %}
+{# 精选项目：项目 front matter 设置 [extra] featured = true 的毕业项目；≥ 4 个时以跑马灯循环滚动，否则回退静态网格（design D9） #}
+{% component featured(pages) %}
+{% set count = 0 %}
+{% for p in pages %}
+  {% if p.extra.featured %}{% set_global count = count + 1 %}{% endif %}
+{% endfor %}
+{% if count > 0 %}
+  {% if count >= 4 %}
 <div class="featured">
   <h4>精选项目</h4>
   <div class="marquee">
     <div class="marquee-track">
       {% for p in pages %}
-        {% if loop.index > limit %}{% break %}{% endif %}
+        {% if p.extra.featured %}
         {{ <fcard page={p} /> }}
+        {% endif %}
       {% endfor %}
       {# 无缝循环副本：对辅助技术与键盘焦点隐藏 #}
       {% for p in pages %}
-        {% if loop.index > limit %}{% break %}{% endif %}
+        {% if p.extra.featured %}
         {{ <fcard page={p} aria_hidden={true} /> }}
+        {% endif %}
       {% endfor %}
     </div>
   </div>
@@ -25,8 +29,9 @@
   <h4>精选项目</h4>
   <div class="fgrid">
     {% for p in pages %}
-      {% if loop.index > limit %}{% break %}{% endif %}
+      {% if p.extra.featured %}
       {{ <fcard page={p} /> }}
+      {% endif %}
     {% endfor %}
   </div>
 </div>

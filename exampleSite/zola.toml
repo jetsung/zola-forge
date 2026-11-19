@@ -46,8 +46,6 @@ site_brand = "Forge Demo"
 site_subtitle = "forge 主题示例站：收录示例项目的开发、孵化与归档。"
 # 页脚文案（支持 HTML：可自定义版权文本、备案链接、统计代码等）；留空则显示默认版权与主题信息
 footer_text = ""
-# 主页精选项目数量（最近更新的毕业项目，≥ 4 时以跑马灯循环展示，否则静态网格）
-featured_count = 6
 # 主页默认展示的状态板块（对应 content/projects/ 下的子 section 目录名）
 home_default_status = "graduate"
 

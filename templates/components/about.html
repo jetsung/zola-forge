@@ -1,5 +1,13 @@
-{# 个人介绍区：头像、姓名、角色、简介、联系方式、统计、技能 #}
-{% component about(profile, total, graduate, incubate, archive, years) %}
+{# 个人介绍区：头像、姓名、角色、简介、联系方式、统计、技能；统计遍历 content/projects/ 下的分组子目录（weight 决定顺序） #}
+{% component about(profile, years, parent="projects/_index.md") %}
+{% set projects = get_section(path=parent, allow_missing=true) %}
+{% set total = 0 %}
+{% if projects %}
+{% for sub in projects.subsections %}
+{% set sec = get_section(path=sub, allow_missing=true) %}
+{% if sec %}{% set_global total = total + (sec.pages | length) %}{% endif %}
+{% endfor %}
+{% endif %}
 <div class="about">
   <div class="row">
     <div class="avatar">{{ profile.avatar }}</div>
@@ -16,9 +24,13 @@
   </div>
   <div class="stats">
     <div class="stat"><b>{{ total }}</b><span>收录项目</span></div>
-    <div class="stat"><b>{{ graduate }}</b><span>毕业项目</span></div>
-    <div class="stat"><b>{{ incubate }}</b><span>孵化项目</span></div>
-    <div class="stat"><b>{{ archive }}</b><span>归档项目</span></div>
+    {% if projects %}
+    {% for sub in projects.subsections %}
+    {% set sec = get_section(path=sub, allow_missing=true) %}
+    {# 空分组（0 项目）不显示 #}
+    {% if sec and sec.pages | length > 0 %}<div class="stat"><b>{{ sec.pages | length }}</b><span>{{ sec.title }}</span></div>{% endif %}
+    {% endfor %}
+    {% endif %}
     <div class="stat"><b>{{ years }}</b><span>开源年数</span></div>
   </div>
   <div class="skills">

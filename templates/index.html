@@ -6,21 +6,16 @@
 {% block content %}
 {% set ht = config.extra.home_type | default(value="projects") %}
 <div class="wrap">
+  {# 分组看板：遍历 content/projects/ 下的分组子目录（各 _index.md 的 weight 决定顺序），分组全部可自定义 #}
+  {% set projects = get_section(path="projects/_index.md", allow_missing=true) %}
   {% set graduate = get_section(path="projects/graduate/_index.md", allow_missing=true) %}
-  {% set incubate = get_section(path="projects/incubate/_index.md", allow_missing=true) %}
-  {% set archive = get_section(path="projects/archive/_index.md", allow_missing=true) %}
-  {% set misc = get_section(path="projects/misc/_index.md", allow_missing=true) %}
   {% set blog_sec = get_section(path="blog/_index.md", allow_missing=true) %}
-  {% set g_count = graduate.pages | length if graduate else 0 %}
-  {% set i_count = incubate.pages | length if incubate else 0 %}
-  {% set a_count = archive.pages | length if archive else 0 %}
-  {% set m_count = misc.pages | length if misc else 0 %}
   {% set years = now() | date(format="%Y") | int - config.extra.profile.start_year %}
   {% set profile = config.extra.profile %}
   {% set default_status = config.extra.home_default_status %}
 
   {% if config.extra.profile.enable %}
-  {{ <about profile={profile} total={g_count + i_count + a_count + m_count} graduate={g_count} incubate={i_count} archive={a_count} years={years} /> }}
+  {{ <about profile={profile} years={years} /> }}
   {% endif %}
 
   {% if ht == "blog" %}
@@ -40,24 +35,42 @@
   {% endif %}
   {% else %}
   {% if ht == "projects" or ht == "mixed" %}
-  {{ <featured pages={graduate.pages} limit={config.extra.featured_count} /> }}
+  {{ <featured pages={graduate.pages} /> }}
   {% endif %}
-  <div class="tabbed">
-    {% if ht == "mixed" and blog_sec %}
-    <div class="blog-list home-blog">
-      {% for p in blog_sec.pages %}
-        {% if loop.index > config.extra.home_blog_count %}{% break %}{% endif %}
-        {{ <blog_card page={p} /> }}
+  {# 状态导航：锚点快速跳转到各分组 #}
+  {{ <status_tabs current={default_status} /> }}
+  {# 分组平铺：首页不做折叠，逐组完整展示（分组 _index.md 的 extra.home_show = false 可不在首页显示） #}
+  {% if ht == "mixed" and blog_sec %}
+  <div class="blog-list home-blog">
+    {% for p in blog_sec.pages %}
+      {% if loop.index > config.extra.home_blog_count %}{% break %}{% endif %}
+      {{ <blog_card page={p} /> }}
+    {% endfor %}
+  </div>
+  <div class="view-all-wrap"><a class="view-all" href="/blog/">全部文章 →</a></div>
+  {% endif %}
+  {% if projects %}
+  {% for sub in projects.subsections %}
+  {% set sec = get_section(path=sub, allow_missing=true) %}
+  {% if sec %}
+  {% set home_show = sec.extra.home_show | default(value=true) %}
+  {# 空分组（0 项目）不显示 #}
+  {% if home_show and sec.pages | length > 0 %}
+  <div class="board home-board" id="{{ sec.components | last }}">
+    <h2>{{ sec.title }}<span class="count">{{ sec.pages | length }}</span></h2>
+    <div class="desc">{{ sec.description }}</div>
+    <div class="grid">
+      {% for p in sec.pages %}
+      {{ <card page={p} key={sec.components | last} label={sec.title} /> }}
       {% endfor %}
     </div>
-    <div class="view-all-wrap"><a class="view-all" href="/blog/">全部文章 →</a></div>
-    {% endif %}
-    {{ <board_panel sec={graduate} key="graduate" current={default_status} is_paged={false} paginator={0} /> }}
-    {{ <board_panel sec={incubate} key="incubate" current={default_status} is_paged={false} paginator={0} /> }}
-    {{ <board_panel sec={archive} key="archive" current={default_status} is_paged={false} paginator={0} /> }}
-    {{ <board_panel sec={misc} key="misc" current={default_status} is_paged={false} paginator={0} /> }}
-    {{ <status_tabs current={default_status} graduate={graduate} incubate={incubate} archive={archive} misc={misc} /> }}
   </div>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  <div class="view-all-wrap"><a class="view-all" href="/projects/">查看所有项目</a></div>
+  {% endif %}
   {% endif %}
 </div>
 {% endblock content %}
+
