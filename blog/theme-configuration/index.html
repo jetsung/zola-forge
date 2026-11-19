@@ -108,6 +108,7 @@
 <tr><td><code>footer_text</code></td><td><code>""</code></td><td>页脚文案，支持 HTML（版权文本、备案链接、统计代码等）；<strong>留空时显示默认版权与主题信息</strong>（<code>© 年份 {profile.name} · Powered by Zola &amp; forge</code>，Zola 链接官网，forge 链接主题 GitHub 仓库）</td></tr>
 <tr><td><code>featured_count</code></td><td><code>6</code></td><td>主页精选项目数量（最近更新的毕业项目）；≥ 4 时以跑马灯循环展示，否则静态网格</td></tr>
 <tr><td><code>home_default_status</code></td><td><code>"graduate"</code></td><td>主页默认展示的状态板块（对应 <code>content/projects/</code> 下子目录名）</td></tr>
+<tr><td><code>project_sections</code></td><td><code>[]</code></td><td>扩展项目分组数组：在 4 个内置板块（毕业/孵化/归档/未收录）之后追加自定义分组。<code>key</code> 为 <code>content/projects/</code> 下的子目录名（需含 <code>_index.md</code>），<code>title</code> 为展示名，如 <code>[{ key = "experiment", title = "试验田" }]</code>；分组徽章使用默认配色</td></tr>
 </tbody></table>
 <h2 id="extra-nav"><code>[extra.nav]</code></h2>
 <p>头部导航菜单，<code>path</code> 为站内相对路径：</p>
