@@ -115,7 +115,7 @@
 <span class="giallo-l"><span>paginate_by = 6             # 每页卡片数</span></span>
 <span class="giallo-l"><span>weight = 1                  # tab 顺序</span></span>
 <span class="giallo-l"><span>+++</span></span></code></pre>
-<p>空板块（状态目录只有 <code>_index.md</code>、没有项目）正常构建，显示「该分类下暂无项目」。</p>
+<p>空板块（状态目录只有 <code>_index.md</code>、没有项目）正常构建，但项目数为 0 的分组会自动隐藏，不在首页、导航 tab、统计区与列表页中显示。</p>
 <h2 id="xin-zeng-zhuang-tai-ban-kuai">新增状态板块</h2>
 <ol>
 <li>在 <code>content/projects/</code> 下新建目录与 <code>_index.md</code>（指定新的 <code>weight</code>）；</li>

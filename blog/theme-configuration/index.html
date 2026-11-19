@@ -106,10 +106,19 @@
 <tr><td><code>site_brand</code></td><td>—</td><td>头部品牌行文字，设为 <code>""</code> 可隐藏</td></tr>
 <tr><td><code>site_subtitle</code></td><td>—</td><td>头部副标题文字；未配置时取 <code>content/_index.md</code> 的 <code>description</code></td></tr>
 <tr><td><code>footer_text</code></td><td><code>""</code></td><td>页脚文案，支持 HTML（版权文本、备案链接、统计代码等）；<strong>留空时显示默认版权与主题信息</strong>（<code>© 年份 {profile.name} · Powered by Zola &amp; forge</code>，Zola 链接官网，forge 链接主题 GitHub 仓库）</td></tr>
-<tr><td><code>featured_count</code></td><td><code>6</code></td><td>主页精选项目数量（最近更新的毕业项目）；≥ 4 时以跑马灯循环展示，否则静态网格</td></tr>
 <tr><td><code>home_default_status</code></td><td><code>"graduate"</code></td><td>主页默认展示的状态板块（对应 <code>content/projects/</code> 下子目录名）</td></tr>
-<tr><td><code>project_sections</code></td><td><code>[]</code></td><td>扩展项目分组数组：在 4 个内置板块（毕业/孵化/归档/未收录）之后追加自定义分组。<code>key</code> 为 <code>content/projects/</code> 下的子目录名（需含 <code>_index.md</code>），<code>title</code> 为展示名，如 <code>[{ key = "experiment", title = "试验田" }]</code>；分组徽章使用默认配色</td></tr>
 </tbody></table>
+<h3 id="jing-xuan-xiang-mu">精选项目</h3>
+<p>精选区不再按数量截取，由<strong>项目级标志</strong>控制：在项目文章 front matter 中设置 <code>[extra] featured = true</code> 即为精选。精选来源固定为 <code>graduate</code>（已毕业项目）分组；精选数量 ≥ 4 时以跑马灯循环展示，否则静态网格，无精选时整个区块不渲染。</p>
+<h3 id="xiang-mu-fen-zu-zi-ding-yi-yu-pai-xu">项目分组（自定义与排序）</h3>
+<p>分组看板由 <code>content/projects/</code> 下的<strong>分组子目录</strong>驱动，不再固定为内置 4 个：</p>
+<ul>
+<li><strong>新增分组</strong>：新建 <code>content/projects/&lt;key&gt;/_index.md</code>（<code>title</code>、<code>description</code>、<code>sort_by = "update_date"</code>、<code>paginate_by = 6</code>），目录内放入项目文章即可</li>
+<li><strong>排序</strong>：每个分组 <code>_index.md</code> 的 <code>weight</code> 数字决定 tab 与首页顺序（数字小者在前）</li>
+<li><strong>首页显示</strong>：首页各分组逐组完整平铺展示（不做折叠）；在分组 <code>_index.md</code> 的 front matter 中设置 <code>[extra] home_show = false</code> 可让该分组不在首页显示（作品列表页 <code>/projects/</code> 不受影响）</li>
+<li><strong>默认分组</strong>：<code>graduate</code>（毕业项目，weight 1）、<code>incubate</code>（孵化项目，weight 2）、<code>archive</code>（归档项目，weight 3）、<code>misc</code>（未收录，weight 4），可作为模板复制；内置 4 个分组的徽章有专属配色，其它分组徽章使用默认配色</li>
+<li><strong>删除分组</strong>：移除对应目录即可（主页默认板块 <code>home_default_status</code> 需指向仍存在的分组）</li>
+</ul>
 <h2 id="extra-nav"><code>[extra.nav]</code></h2>
 <p>头部导航菜单，<code>path</code> 为站内相对路径：</p>
 <pre class="giallo" style="color: #24292E; background-color: #FFFFFF;" ><code data-lang="toml"><span class="giallo-l"><span>[</span><span style="color: #6F42C1;">extra</span><span>.</span><span style="color: #6F42C1;">nav</span><span>]</span></span>
