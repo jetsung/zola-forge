@@ -8,7 +8,6 @@
 <div class="wrap">
   {# 分组看板：遍历 content/projects/ 下的分组子目录（各 _index.md 的 weight 决定顺序），分组全部可自定义 #}
   {% set projects = get_section(path="projects/_index.md", allow_missing=true) %}
-  {% set graduate = get_section(path="projects/graduate/_index.md", allow_missing=true) %}
   {% set blog_sec = get_section(path="blog/_index.md", allow_missing=true) %}
   {% set years = now() | date(format="%Y") | int - config.extra.profile.start_year %}
   {% set profile = config.extra.profile %}
@@ -35,7 +34,7 @@
   {% endif %}
   {% else %}
   {% if ht == "projects" or ht == "mixed" %}
-  {{ <featured pages={graduate.pages} /> }}
+  {{ <featured root={projects} /> }}
   {% endif %}
   {# 状态导航：锚点快速跳转到各分组 #}
   {{ <status_tabs current={default_status} /> }}
